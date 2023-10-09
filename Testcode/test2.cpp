@@ -23,6 +23,6 @@ int main() {
   int row = 3;
   int col = 2;
   cout << "Phần tử ở vị trí " << row << "x" << col << " là: " << matrix[row][col] << endl;
-
+//trung dep trai qua vcl
   return 0;
 }
