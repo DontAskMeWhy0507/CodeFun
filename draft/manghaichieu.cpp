@@ -23,12 +23,14 @@ int main() {
     for (h = 0; h < qcauhoi; h++) {
         for (k = 0; k < 2; k++) {
             cot = a[h][k]-1;
+            cout<<"day la vong "<<cot<<endl;
             if (hang==-1)
             {
                 hang = cot;
             }
         }
-        cout << b[hang][cot] << endl;
+        cout<<"day la cot "<<cot<<endl;
+       // cout << b[hang][cot] << endl;
        
 
         hang =-1;

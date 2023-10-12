@@ -1,18 +1,16 @@
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
-int solve(int n, int m)
-{
-    if(n < 0) return 0;
-    if(n == 0) return 1;
-
-    int ans = 0;
-    for (int i = m+1; i <= n; i++) ans += solve(n-i, i);
-    return ans;
-}
-
 int main() {
-    int n;
-    cin >> n;
-    cout << solve(n, 0);
-}
+    long long i, j;
+    long long ncot, mhang;
+    cin >>mhang >> ncot ;
+    int b[mhang][ncot];
+    for (i = 0; i < mhang; i++) {
+        for (j = 0; j < ncot; j++) {
+            cin >> b[i][j];
+        }
+    }
+    cout<<b[1][2];
+    }
