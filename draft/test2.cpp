@@ -2,18 +2,17 @@
 
 using namespace std;
 
- /*int main()
- {
-   int x = 5;
-    cout << x << " " << (&x) << " " << *(&x) << endl;
+bool isGreaterThanOne(int n) {
+  if(n<10)return false;
+  return n > 1;
+}
 
-   return 0;
-}*/
+int main() {
+  int n ;
+cin>>n;
+  bool isGreater = isGreaterThanOne(n);
 
-  int main(){
-      int x = 5;
-      int *ptr = &x;
-      cout << x << " " << (&x) << " " << ptr << " " << (&ptr) << " " << (*ptr) << " " << &(*ptr) <<  endl;
-      *ptr = 10;
-      cout << x << " " << (&x) << " " << (&ptr) << " " <<*ptr << endl;
-  }
+  cout << "isGreater: " << isGreater << endl;
+
+  return 0;
+}

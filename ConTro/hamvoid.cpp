@@ -4,7 +4,7 @@ void float1(int x){
     x*=2;
 }
 
-void float2(int &x){
+void float2(int &x){    //truyền tham chiếu 
     x*=2;
 }
 
