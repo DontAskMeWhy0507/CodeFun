@@ -1,7 +1,18 @@
-    #include <iostream>
+   #include <iostream>
+   #include <string>
     using namespace std;
-    int main(){
-        int a=5,b=6;
-        cout<<a++;
-        cout<<++b;
+    int diem(string s){ 
+        if(s=="J"||s=="Q"||s=="K") return 10;
+     
+
+   
+    }
+    int main()
+    {       
+        string a,b;
+        cin>>a>>b;
+        int n =  diem(a)+diem(b);
+        if(n==22)cout<<2;
+        else cout<<n;
+        return 0;
     }

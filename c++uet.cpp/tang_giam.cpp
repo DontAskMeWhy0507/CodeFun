@@ -1,3 +1,4 @@
+// kiem tra xem ham co tang hay giam lien tuc hay khong.
 #include <iostream>
 using namespace std;
 int main(){

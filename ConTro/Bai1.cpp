@@ -1,5 +1,4 @@
 #include <iostream>
-
 struct con_nguoi
 {
     con_nguoi(int t,float v1,float cc)
