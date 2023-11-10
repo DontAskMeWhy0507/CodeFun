@@ -17,7 +17,7 @@ int main(){
         res = char (dv + '0') + res;
     }
 
-    if (du) res = char (du + '0') + res;
+    if (du) res = char (du + '0') + res;   //kiểm tra xem du có bằng 0 không, nếu không thì cộng vào res
 
         cout << res;
 }

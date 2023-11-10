@@ -1,3 +1,4 @@
+/*dạng bài này kẻ trục oxy sau đó tìm  điểm thú vị của x và y*/
 #include <iostream>
 using namespace std;
 void vehinh() {
