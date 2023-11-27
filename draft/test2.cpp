@@ -1,37 +1,15 @@
-#include <iostream>
-using namespace std;
-int xoaso(int a[],int vitri,int n){
-    for(int i=vitri;i<n;i++)
-    {
-        a[i]=a[i+1];
-    }
-    return n-1;
-}
-int main(){
-    int n;cin>>n;
-    int a[n],MIN=100; 
-    for(int i=0;i<n;i++)
-    {
-       cin>>a[i]; 
-    }
-    for(int i=0;i<n-5;i++)
-    {
-     for(int j=1;j<n-2;i++)
-     {
-         MIN=min(MIN,a[j]);
-     }
-     int vitri=10;
-     for(int j=i+1;j<n-2;j++)
-     {
-         if(a[j]==MIN)
-         {
-             vitri=j;    
-             n=xoaso(a,vitri,n);
-         }
-     }
-     
-    }
-    for (int i=0;i<n;i++){
-        cout<<a[i]<<" ";
-    }
+bool areAnagrams(string str1,string str2){
+ int len1 = str1.length();
+ int len2 = str2.length();
+ 
+ for( int i = 0; i<len1; ++i) str1[i]=tolower(str1[i]);
+ for( int i = 0; i<len2; ++i) str2[i]=tolower(str2[i]);
+ int a[26];
+ fill_n(a,26,0);  //memset
+ for( auto ch:str1) {a[ch-'a']++;}
+for( auto ch:str2) {a[ch-'a']--;}
+ for (int i=0;i<26;++i)
+  {if(a[i]) return false;}
+  
+  return false;
 }

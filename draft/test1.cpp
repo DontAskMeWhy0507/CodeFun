@@ -1,28 +1,13 @@
-#include <iostream>
-using namespace std;
-int main(){
-    int n,a[100];
-    cin>>n;
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int vitri; cin>>vitri;
-    for(int i=0;i<n;i++){
-        if(a[i]<vitri&&a[i+1]>vitri){
-            int mang=i+1;
-           for (int j=n;j>mang;j--){
-                     a[j]=a[j-1];}
-            a[mang]=vitri;
-            }
-        else if(a[i]>vitri&&a[i+1]<vitri){
-            int mang=i+1;
-           for (int j=n;j>mang;j--){
-                     a[j]=a[j-1];}
-            a[mang]=vitri;
-            }
-        }
-        for(int i=0;i<=n;i++){
-        cout<<a[i]<<" ";
-    }
-    }
-   
+void rotate ( int arr[], int n, int k){
+ int tmp;
+
+for(int x=k;x>0;x--){
+ tmp=arr[n-1];
+ for (int i=n-1;i>=1;i++){
+     arr[i]=arr[i-1];
+ }
+ arr[0]=tmp;
+
+}
+  
+}
