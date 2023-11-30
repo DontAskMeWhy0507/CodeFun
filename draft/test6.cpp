@@ -1,15 +1,14 @@
-#include <cstring>
 #include <iostream>
 using namespace std;
-void trim_right(char *s){
-    int len=strlen(s);
-    for(int i=0;i<len;i++){
-        if(s[i]==' ')break;
-    }
+int main (){
+   int x;
+   int f1=1,f2=1,fn;
+   int n;
+   cin>>n;
+   for(int i=0;i<n;i++){
+       fn=2*f1-f2;
+       f1=f2;
+       f2=fn;
+   }
+   cout<<fn;
 }
-int main(){
-    char s[100];
-    cin.getline(s,100);
-    trim_right(s);
-    cout<<s;
-}   
