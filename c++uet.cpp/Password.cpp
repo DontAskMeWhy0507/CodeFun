@@ -15,33 +15,34 @@ vector<int> getDigits(unsigned int num)
     reverse(digits.begin(), digits.end());
     return digits;
 }
-vector<int> getCorrectResponse(vector<int>digitOfPin; vector<int>digitOfNum)
+vector<int> getCorrectResponse(vector<int>digitOfPin, vector<int>digitOfNum)
 {
     vector<int> correctResponse;
-    for(int i=0;i<9;i++){
-        if(digitOfPin[i]==digitOfNum[i]){
-            correctResponse.push_back(2);
+    int len = digitOfPin.size();
+    for (int j=0; j< len;j++)
+    {
+        for (int i = 0; i <=9; i++)
+        {
+        if (digitOfPin[j]==i)
+        {
+            correctResponse.push_back(digitOfNum[i]);
         }
-        else if(digitOfPin[i]!=digitOfNum[i]){
-            correctResponse.push_back(1);
-        }
-        else{
-            correctResponse.push_back(0);
         }
     }
+    return correctResponse;
 }
-void printfDigits(vector<int> digits)
+void printDigits(vector<int> digits)
 {
-    for (int i = 0; i < digits.size(); i++)
+    for (int digit : digits)
     {
-        cout << digits[i] << " ";}
-        
+        cout << digit;
+    }
 }
 int main(){
-    unsgined int pin, num;
+    unsigned int pin, num;
     cin>>pin>>num;
     vector<int> digitsOfPin = getDigits(pin);
     vector<int> digitsOfNum =getDigits(num);
     vector<int> correctResponse = getCorrectResponse(digitsOfPin, digitsOfNum);
-    printfDigits(correctResponse);
+    printDigits(correctResponse);
 }
