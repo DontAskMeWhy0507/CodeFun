@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+<<<<<<< HEAD
 
 int value = 1;
 
@@ -11,4 +12,3 @@ int main()	{
 	cout << "global value: " << ::value << endl;
 	
 	return 0;
-}
