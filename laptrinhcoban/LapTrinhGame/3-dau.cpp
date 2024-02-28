@@ -19,18 +19,28 @@ int main() {
 
 struct Test
 {
+  static Test* GetInstance(){
+            return s_Instance = (s_Instance != nullptr)? s_Instance : new Test();
+        }
 	static void foo()
 	{
 		std::cout << "Called static function: foo" << std::endl;
 	}
+  
+private:
+        static Test* s_Instance;
+
 };
+
+Test* Test::s_Instance = nullptr;
 
 int main()
 {
 	//Test::foo();
 	//return 0;
-   Test* t = new Test;
+  /* Test* t = new Test;
     t->foo();
     delete t;
-    return 0;
+    return 0;*/
+    Test::GetInstance()->foo();
 }
