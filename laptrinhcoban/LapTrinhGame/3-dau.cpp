@@ -36,11 +36,25 @@ Test* Test::s_Instance = nullptr;
 
 int main()
 {
-	//Test::foo();
-	//return 0;
+	// Cách gọi hàm foo
+  /*Test::foo();
+	return 0;*/
+
+  // hoặc như sau
+
   /* Test* t = new Test;
     t->foo();
     delete t;
     return 0;*/
+
+  // hoặc như sau
+
     Test::GetInstance()->foo();
+
+    // Cách 2
+
+    /*Test* instance = Test::GetInstance();
+    instance->foo();
+    // Không cần delete instance vì nó được quản lý bởi Test::GetInstance()
+    return 0;*/
 }
