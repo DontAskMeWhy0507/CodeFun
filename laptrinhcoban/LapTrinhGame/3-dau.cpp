@@ -49,7 +49,7 @@ int main()
 
   // hoặc như sau
 
-    Test::GetInstance()->foo();
+   /*Test::GetInstance()->foo();*/
 
     // Cách 2
 
@@ -57,4 +57,6 @@ int main()
     instance->foo();
     // Không cần delete instance vì nó được quản lý bởi Test::GetInstance()
     return 0;*/
+    Test trung;
+    trung.foo();
 }

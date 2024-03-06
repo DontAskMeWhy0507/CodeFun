@@ -8,7 +8,7 @@ public:
 
 class HelloMessage : public Message {
 public:
-    void Print() const override {
+    void Print() const  {
         cout << "Hello, World!" << endl;
     }
 };
