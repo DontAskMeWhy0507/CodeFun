@@ -120,9 +120,9 @@ class Warrior : public Character
     public:
         Warrior(Properties* props);
 
-        void Draw() override;
-        void Clean() override;
-        void Update(float dt) override;
+        void Draw() ;
+        void Clean() ;
+        void Update(float dt) ;
 
     private:
          int m_Row, m_Frame, m_FrameCount;
