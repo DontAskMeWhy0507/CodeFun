@@ -1,0 +1,67 @@
+# depslib dependency file v1.0
+1709741780 source:g:\working\demo3codeblock\demo1\main.cpp
+	"Engine.h"
+
+1709741780 g:\working\demo3codeblock\demo1\src\core\engine.h
+	"SDL.h"
+	"SDL_image.h"
+
+1709835334 source:g:\working\demo3codeblock\demo1\src\core\engine.cpp
+	"Engine.h"
+	"TextureManager.h"
+	"Input.h"
+	"Warrior.h"
+
+1709737688 source:g:\working\demo3codeblock\demo1\src\graphics\texturemanager.cpp
+	"TextureManager.h"
+	"Engine.h"
+
+1708532395 g:\working\demo3codeblock\demo1\src\graphics\texturemanager.h
+	<string>
+	"SDL.h"
+	<map>
+
+1709557210 g:\working\demo3codeblock\demo1\src\physics\vector2d.h
+	<iostream>
+
+1709830086 g:\working\demo3codeblock\demo1\src\physics\transform.h
+	"Vector2D.h"
+
+1709830414 source:g:\working\demo3codeblock\demo1\src\character\warrior.cpp
+	"Warrior.h"
+	"TextureManager.h"
+	"SDL.h"
+
+1709829647 g:\working\demo3codeblock\demo1\src\character\warrior.h
+	"Character.h"
+	"Animation.h"
+	"Rigidbody.h"
+
+1709575875 g:\working\demo3codeblock\demo1\src\character\character.h
+	"GameObject.h"
+
+1709576228 g:\working\demo3codeblock\demo1\src\object\gameobject.h
+	"SDL.h"
+	"IObject.h"
+	"Transform.h"
+
+1709569093 g:\working\demo3codeblock\demo1\src\object\iobject.h
+
+1709817256 g:\working\demo3codeblock\demo1\src\animation\animation.h
+	<string>
+	"SDL.h"
+
+1709817294 source:g:\working\demo3codeblock\demo1\src\animation\animation.cpp
+	"Animation.h"
+	"TextureManager.h"
+
+1709829677 g:\working\demo3codeblock\demo1\src\physics\rigidbody.h
+	"Vector2D.h"
+
+1709835151 source:g:\working\demo3codeblock\demo1\src\inputs\input.cpp
+	"Input.h"
+	"Engine.h"
+
+1709835334 g:\working\demo3codeblock\demo1\src\inputs\input.h
+	"SDL.h"
+
