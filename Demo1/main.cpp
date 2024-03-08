@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Timer.h"
 
 using namespace std;
 
@@ -9,6 +10,7 @@ int main(int argc, char** argv)
         Engine ::GetInstance()->Events();           //Sự kiện từ người dùng (ví dụ như ấn X để tắt game)
         Engine ::GetInstance()->Update();              //
         Engine ::GetInstance()->Render();
+        Timer ::GetInstance()->Tick();
     }
     Engine::GetInstance()->Clean();         //XOA DI SAU KHI CHOI XONG
    return 0;
