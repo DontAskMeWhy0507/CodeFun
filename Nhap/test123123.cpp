@@ -1,32 +1,17 @@
 #include <iostream>
 using namespace std;
 
-class shape 
+class demo
 {
     public:
-        double demension;
-        virtual double dientich() = 0;
-};
-
-class hinhtron: public shape
-{
-    public:
-    
-};
-
-class hinhdep: public hinhtron
-{
-    public:
-        virtual double dientich()
+        demo(int a,int b)
         {
-            return 3.14 * demension * demension;
+            cout<<a<<b;
         }
 };
 
 int main()
 {
-    hinhdep h;
-    h.demension = 3.14;
-    cout << h.dientich();
+    demo (double a, char b);
     return 0;
 }

@@ -1,0 +1,105 @@
+Lập trình game cơ bản
+
+các bước tạo game đơn giản bằng mã giả
+1. tạo vòng lặp được gọi là Singleton Pattern
+- Gồm hàm main chạy vòng lặp theo từng bước: 
++ Engine ->init (khởi tạo bao game, bool init trả về "game đang chạy"  nếu tất cả đều khởi tạo thành công)
++ While (Engine -> IsRunning)
+{
+    Engine -> Event (sự kiện từ người dùng như ấn phím, tắt chương trình.(class input))
+    Engine -> Update () 
+    Engine -> Render()  (Tạo màu nền của game và xóa bỏ nền đen gây lỗi. update renderer khi nó được tạo mới)
+    Timer -> Tick()
+}
++ Engine -> Clean()  (Xóa đi sau khi hàm while không chạy nữa)
+
+2. Engine.
+-Hàm init : khởi tạo từng chương trình. 1  trong số các chương trình khởi tạo sai sẽ return false. Tất cả chạy đúng return bool IsRunning = true;
+-Hàm Update : 
+-Hàm Render : 
+-Hàm Event : 
+-Hàm Clean : Clean TextureManager (Hàm tự viết),Clean Renderer, Clean Window, IMG và SDL quite (4 hàm có sẵn trong thư viện)
+-Hàm Quite : m_IsRunning = false
+
+3. TextureManager 
+- bool Load : tải surface chứa ảnh cần tải lên,sau đó tạo texture trên cái surface đó và trên cái renderer tạo từ engine. Và tạo map liên kết tên file và texture của nó. Return true nếu load xong hết.
+- void Draw : vẽ texture lên màn hình
+    SDL_Rect gồm 2 phần srcRect và dstRect thì scrRect là muốn lấy ảnh từ phần vào và dstRect là muốn vẽ lên phần nào của m_Renderer
+
+- void DrawFrame : vẽ ảnh động lên màn hình
+- void Drop 
+- void Clean 
+
+4.Vector2d
+Class tính +-* các vector 
+
+5. Transform
+di chuyển đối tượng theo trục x và Y
+
+6. Rigidbody
+
+7.IObject
+void Draw
+void Update
+void Clean
+Các hàm này tạo ra để cho các lớp con sau thừa kế.
+
+8.GameObject
+- struct properties : dùng để chứa các dữ liệu như 
+        std::string TextureID;
+        int Width, Height;
+        float X, Y;
+        SDL_RendererFlip Flip;
+
+-Class GameObject :
++ lấy các dữ liệu từ properties để gán vào GameObject :     
+        Transform* m_Transform;
+        int m_Width, m_Height;
+        std::string m_TextureID;
+        SDL_RendererFlip m_Flip;     
+    Trong đó m_Transform = new Transform(X, Y)   //X và Y từ proerties
+
++   void Draw
+    void Update
+    void Clean
+        Thừa kế các hàm trên từ IOject.
+
+
+9.Character
++   void Draw
+    void Update
+    void Clean
+        Thừa kế các hàm trên từ GameObject.
++   Character tạo hàm constructor nhận dữ liệu từ properties và properties đó cho GameObject
+
+10. Warrior
++   void Draw() ;
+    void Clean() ;
+    void Update(float dt) ;
+    Lấy từ trên class Character khai báo đầy đủ nó ở đây.
+
++  Warrior tạo hàm constructor nhận dữ liệu từ properties và properties đó truyền cho Character
+    bên trong tạo 2 biến Rigidbody và Animation
+    Animation->SetProps 
+
++ 
+
+
+11. Animation: Chuyển ảnh thành ảnh động trong game 
+void Update()
+void Draw()
+void SetProps()  : hàm truyền các dữ liệu cho Animation 
+
+12. Input : Hàm nhận đầu vào.
+
+
+
+
+13.Timer : khó hiểu
+- Tương tự như các class khác chỉ có 1 instance
+SDL_GetTicks() : trả về số millisecond đã trôi qua kể từ khi thư viện SDL được khởi tạo
+
++ void Tick() ;
+
+
++ float GetDeltaTime() : hàm trả về m_DeltaTime;
