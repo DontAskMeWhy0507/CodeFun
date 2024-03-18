@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "MapParser.h"
 #include <iostream>
+#include "Camera.h"
 
 
 Engine* Engine::s_Instance = nullptr;
@@ -19,7 +20,7 @@ bool Engine::Init(){
     }
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 
-    m_Window = SDL_CreateWindow("Soft Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREN_HEIGHT, window_flags);
+    m_Window = SDL_CreateWindow("Soft Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
     if(m_Window == nullptr){
         SDL_Log("Failed to create Window: %s", SDL_GetError());
         return false;
@@ -41,17 +42,23 @@ bool Engine::Init(){
     // load texture
     TextureManager::GetInstance()->Load("player", "assets/ide.png");
     TextureManager::GetInstance()->Load("player_run", "assets/Run.png");
+    TextureManager::GetInstance()->Load("Background", "assets/Images/bg.png");
+
 
     player = new Warrior (new Properties ("player",300,250,200,200));       //(Chỉ số id,x,y,width,height)
 
+
+    Camera::GetInstance()->SetTarget(player->GetOrigin());
     return m_IsRunning = true;
 }
 
 void Engine::Update(){
 
-   float dt= Timer::GetInstance()->GetDeltaTime();
+    float dt= Timer::GetInstance()->GetDeltaTime();
     player->Update(dt);
-        m_LevelMap->Update();
+    m_LevelMap->Update();
+    Camera::GetInstance()->Update(dt);
+
 
 }
 
@@ -59,7 +66,8 @@ void Engine::Render(){
     SDL_SetRenderDrawColor(m_Renderer, 124, 418, 954, 955);             //Màu nền của gamme
     SDL_RenderClear(m_Renderer);                                        //Xóa bỏ nền đen mặc định gây nhiều lỗi
 
-        m_LevelMap->Render();                                           //Tạo map tiled
+    TextureManager::GetInstance()->Draw("Background",0,0,1004,500);
+    m_LevelMap->Render();                                           //Tạo map tiled
 
 
     // render texture

@@ -47,8 +47,8 @@ class Rigidbody
         {
             m_Acceleration.X = (m_Force.X + m_Friction.X) / m_Mass;
             m_Acceleration.Y = m_Gravity + m_Force.Y / m_Mass;
-            m_Velocity = m_Acceleration * dt;
-            m_Position = m_Velocity * dt;
+            m_Velocity = m_Acceleration * dt;               //v=a*t
+            m_Position = m_Velocity * dt;                   //vị trí = v*t
         }
 
 

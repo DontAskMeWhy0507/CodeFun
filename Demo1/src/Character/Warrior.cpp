@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "Input.h"
 
+
 Warrior::Warrior(Properties* props):Character(props)
 {
     /*m_Row = 1;
@@ -10,7 +11,7 @@ Warrior::Warrior(Properties* props):Character(props)
     m_AnimaSpeed = 180;*/
     m_RigidBody =  new Rigidbody();
      m_Animation= new Animation();
-m_Animation->SetProps(m_TextureID,1,8,80);//,SDL_FLIP_HORIZONTAL); thêm dấu phải trong ngoặc () nữa để flip
+m_Animation->SetProps(m_TextureID,1,8,80);//(m_texture,1 row,8 frames,80ms ,SDL_FLIP_HORIZONTAL); thêm dấu phải trong ngoặc () nữa để flip
 }
 
 void Warrior::Draw()
@@ -37,15 +38,17 @@ void Warrior::Update(float dt)
 
         m_Animation->SetProps("player_run",1,8,100);
    }
-    SDL_Log("%f",dt);
-    m_RigidBody->Update(dt);
-    m_RigidBody->ApplyForceX(6);
-   /* m_Transform->X += m_RigidBody->Position().X;
-    m_Transform->Y += m_RigidBody->Position().Y;*/
-     m_Transform->TranslateX(m_RigidBody->Position().X);
-    // m_Transform->TranslateY(m_RigidBody->Position().Y);
 
-    m_Animation->Update();
+
+
+    m_RigidBody->Update(dt);                            // truyền dt vào là thông số thời gian trôi qua để tính vận tốc và vị wtrí
+     m_Transform->TranslateX(m_RigidBody->Position().X);        // hàm này để tăng giá trị của x trong m_Transform sau khi thay đỏi m_RigidBody
+  //  m_Transform->TranslateY(m_RigidBody->Position().Y);
+
+    m_Origin->X = m_Transform->X + m_Width/2;
+    m_Origin->Y = m_Transform->Y + m_Height/2;
+
+    m_Animation->Update();              //Cập nhật lại giá trị dt
 }
 
 void Warrior::Clean()

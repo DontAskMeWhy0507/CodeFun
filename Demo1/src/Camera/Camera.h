@@ -18,7 +18,7 @@ class Camera {
 
     private:
         Camera(){
-            m_ViewBox = {0, 0, SCREEN_WIDTH, SCREN_HEIGHT};
+            m_ViewBox = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
         }
 
         Point* m_Target;

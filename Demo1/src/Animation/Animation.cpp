@@ -3,7 +3,7 @@
 
 void Animation::Update()
 {
-    m_SpriteFrame = (SDL_GetTicks() /  m_AimSpeed) % m_FrameCount;
+    m_SpriteFrame = (SDL_GetTicks() /  m_AimSpeed) % m_FrameCount;      //Chia frame them thời gian
 }
 
 void Animation::Draw(float x, float y,int spritWidth, int spriteHeight)

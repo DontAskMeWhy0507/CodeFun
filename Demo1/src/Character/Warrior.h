@@ -15,8 +15,6 @@ class Warrior : public Character
         void Update(float dt) ;
 
     private:
-         //int m_Row, m_Frame, m_FrameCount;
-         //int m_AnimaSpeed;
          Animation* m_Animation;
          Rigidbody* m_RigidBody;
 };
