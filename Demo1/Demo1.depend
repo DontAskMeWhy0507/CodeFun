@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1709873187 source:g:\working\demo3codeblock\demo1\main.cpp
+1710840950 source:g:\working\demo3codeblock\demo1\main.cpp
 	"Engine.h"
 	"Timer.h"
 
-1710775160 g:\working\demo3codeblock\demo1\src\core\engine.h
+1710862204 g:\working\demo3codeblock\demo1\src\core\engine.h
 	"SDL.h"
 	"SDL_image.h"
 	"GameMap.h"
 
-1710775327 source:g:\working\demo3codeblock\demo1\src\core\engine.cpp
+1710867805 source:g:\working\demo3codeblock\demo1\src\core\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"Input.h"
@@ -19,7 +19,7 @@
 	<iostream>
 	"Camera.h"
 
-1710775623 source:g:\working\demo3codeblock\demo1\src\graphics\texturemanager.cpp
+1710841043 source:g:\working\demo3codeblock\demo1\src\graphics\texturemanager.cpp
 	"TextureManager.h"
 	"Engine.h"
 	"Camera.h"
@@ -35,16 +35,21 @@
 1709830086 g:\working\demo3codeblock\demo1\src\physics\transform.h
 	"Vector2D.h"
 
-1710775160 source:g:\working\demo3codeblock\demo1\src\character\warrior.cpp
+1710867877 source:g:\working\demo3codeblock\demo1\src\character\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
 	"Input.h"
+	"Engine.h"
+	"CollisionHandler.h"
+	"Camera.h"
 
-1710773958 g:\working\demo3codeblock\demo1\src\character\warrior.h
+1710865062 g:\working\demo3codeblock\demo1\src\character\warrior.h
 	"Character.h"
 	"Animation.h"
-	"Rigidbody.h"
+	"RigidBody.h"
+	"Collider.h"
+	"Vector2D.h"
 
 1709575875 g:\working\demo3codeblock\demo1\src\character\character.h
 	"GameObject.h"
@@ -61,7 +66,7 @@
 	<string>
 	"SDL.h"
 
-1710666186 source:g:\working\demo3codeblock\demo1\src\animation\animation.cpp
+1710841046 source:g:\working\demo3codeblock\demo1\src\animation\animation.cpp
 	"Animation.h"
 	"TextureManager.h"
 
@@ -77,7 +82,7 @@
 
 1709897090 g:\working\demo3codeblock\demo1\src\timer\timer.h
 
-1709873155 source:g:\working\demo3codeblock\demo1\src\timer\timer.cpp
+1710841019 source:g:\working\demo3codeblock\demo1\src\timer\timer.cpp
 	"Timer.h"
 	"SDL.h"
 
@@ -161,4 +166,16 @@
 
 1710774127 g:\working\demo3codeblock\demo1\src\physics\point.h
 	<iostream>
+
+1710866769 source:g:\working\demo3codeblock\demo1\src\collision\collisionhandler.cpp
+	"CollisionHandler.h"
+	"Engine.h"
+
+1710839530 g:\working\demo3codeblock\demo1\src\collision\collisionhandler.h
+	"SDL.h"
+	<vector>
+	"TileLayer.h"
+	"GameMap.h"
+
+1710865012 g:\working\demo3codeblock\demo1\src\physics\collider.h
 

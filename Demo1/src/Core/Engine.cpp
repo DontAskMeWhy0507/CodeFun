@@ -19,6 +19,7 @@ bool Engine::Init(){
         return false;
     }
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+    //để có thể mở rộng game toàn màn hình hoặc thu nhỏ lại tùy ý
 
     m_Window = SDL_CreateWindow("Soft Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
     if(m_Window == nullptr){
@@ -39,16 +40,21 @@ bool Engine::Init(){
 
     m_LevelMap = MapParser::GetInstance()->GetMap("level1");
 
-    // load texture
+    // load texturere
     TextureManager::GetInstance()->Load("player", "assets/ide.png");
     TextureManager::GetInstance()->Load("player_run", "assets/Run.png");
     TextureManager::GetInstance()->Load("Background", "assets/Images/bg.png");
+    TextureManager::GetInstance()->Load("Jump", "assets/Jump.png");
+
 
 
     player = new Warrior (new Properties ("player",300,250,200,200));       //(Chỉ số id,x,y,width,height)
+    //x,y được lưu vào m_Transform. x,y là tọa độ của ảnh trên cửa sổ game
 
 
     Camera::GetInstance()->SetTarget(player->GetOrigin());
+    //GetOrigin ở trong class GameObject
+
     return m_IsRunning = true;
 }
 
@@ -56,7 +62,11 @@ void Engine::Update(){
 
     float dt= Timer::GetInstance()->GetDeltaTime();
     player->Update(dt);
+    //Cho nhân vật di chuyển khi có sự kiện từ bàn phím
+
     m_LevelMap->Update();
+
+
     Camera::GetInstance()->Update(dt);
 
 
@@ -64,14 +74,18 @@ void Engine::Update(){
 
 void Engine::Render(){
     SDL_SetRenderDrawColor(m_Renderer, 124, 418, 954, 955);             //Màu nền của gamme
-    SDL_RenderClear(m_Renderer);                                        //Xóa bỏ nền đen mặc định gây nhiều lỗi
+   SDL_RenderClear(m_Renderer);                                        //Xóa bỏ nền đen mặc định gây nhiều lỗi
 
-    TextureManager::GetInstance()->Draw("Background",0,0,1004,500);
+   /*Load ảnh theo thứ tự nền xong rồi mới nhân vật. Nếu không nhân vật sẽ ở sau nền*/
+
+    TextureManager::GetInstance()->Draw("Background",0,0,1004,500);     //vẽ background lên trên texture.
     m_LevelMap->Render();                                           //Tạo map tiled
 
 
     // render texture
     player->Draw();                                                     //vẽ player lên trên game
+
+
    SDL_RenderPresent(m_Renderer);                                       //Update m_Renderer lên màn hình sau khi nó được tạo mới
 }
 

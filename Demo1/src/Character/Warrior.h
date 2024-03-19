@@ -3,7 +3,15 @@
 
 #include "Character.h"
 #include "Animation.h"
-#include "Rigidbody.h"
+#include "RigidBody.h"
+#include "Collider.h"
+#include "Vector2D.h"
+
+#define JUMP_FORCE 10.0f
+#define JUMP_TIME 15.0f;
+
+#define RUN_FORCE 4.0f
+#define ATTACK_TIME 20.0f
 
 class Warrior : public Character
 {
@@ -14,9 +22,25 @@ class Warrior : public Character
         void Clean() ;
         void Update(float dt) ;
 
+   private:
+        void AnimationState();
+
     private:
-         Animation* m_Animation;
-         Rigidbody* m_RigidBody;
+        bool m_IsRunning;
+        bool m_IsJumping;
+        bool m_IsFalling;
+        bool m_IsGrounded;
+        bool m_IsAttacking;
+        bool m_IsCrouching;
+
+        float m_JumpTime;
+        float m_JumpForce;
+        float m_AttackTime;
+
+        Collider* m_Collider;
+        Animation* m_Animation;
+        Rigidbody* m_RigidBody;
+        Vector2D m_LastSafePosition;
 };
 
 #endif // WARRIOR_H

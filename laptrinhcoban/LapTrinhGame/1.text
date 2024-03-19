@@ -1,7 +1,7 @@
 Lập trình game cơ bản
 
 các bước tạo game đơn giản bằng mã giả
-1. tạo vòng lặp được gọi là Singleton Pattern
+1. Tạo vòng lặp được gọi là Singleton Pattern
 - Gồm hàm main chạy vòng lặp theo từng bước: 
 + Engine ->init (khởi tạo bao game, bool init trả về "game đang chạy"  nếu tất cả đều khởi tạo thành công)
 + While (Engine -> IsRunning)

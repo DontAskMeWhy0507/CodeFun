@@ -24,6 +24,7 @@ bool TextureManager::Load(std::string id, std::string filename){
 
 void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, SDL_RendererFlip flip){
     SDL_Rect srcRect = {0, 0, width, heigt};
+    //lấy phần texturerer từ góc trái trên  cùng xuống dưới theo width và height của nó.
     Vector2D cam = Camera::GetInstance()->GetPosition()*0.5;
     SDL_Rect dstRect = {x - cam.X, y-cam.Y, width, heigt};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
@@ -31,7 +32,7 @@ void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, SD
 
 void TextureManager::DrawFrame(std::string id, int x, int y, int width, int heigt, int row, int frame, SDL_RendererFlip flip){
     SDL_Rect srcRect = {width*frame, heigt*(row-1), width, heigt};
-
+    // lấy phần texturere từ góc trái trên cùng của từng ảnh trong ảnh lớn đến width và heigt của nó. Frame là biến thay đổi từ 0 đến framecount-1.
     Vector2D cam = Camera::GetInstance()->GetPosition();
     SDL_Rect dstRect = {x - cam.X, y-cam.Y, width, heigt};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
