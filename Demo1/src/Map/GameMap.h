@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Layer.h"
-
+//1 game map có nhiều layer. mỗi layer ta lưu vào một vector các layer
 class GameMap {
 
     public:

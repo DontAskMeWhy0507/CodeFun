@@ -6,6 +6,7 @@
 #include "Layer.h"
 #include "Vector2D.h"
 
+//1 tileset chứa thông tin về các tile.
 struct Tileset{
     int FirstID, LastID;
     int RowCount, ColCount;
