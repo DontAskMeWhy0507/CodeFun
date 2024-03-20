@@ -17,14 +17,14 @@ class Engine {
         }
 
         bool Init();        //hàm return m_Isrunning=true nếu khởi tạo xong
-        bool Clean();
-        void Quit();
+        bool Clean();       //Nếu hàm IsFunning return false thì xoá bỏ tất cả
+        void Quit();        // thay đổi IsRunning == false
 
-        void Update();
-        void Render();
-        void Events();
+        void Update();     // cập nhật trạng thái của vật thông qua deltaTime
+        void Render();      //render các nhân vật,nền và map,...
+        void Events();      //đợi sự kiện từ bàn phím
 
-        inline GameMap* GetMap(){return m_LevelMap;}
+        inline GameMap* GetMap(){return m_LevelMap;}   //
         inline bool IsRunning(){return m_IsRunning;}
         inline SDL_Renderer* GetRenderer(){return m_Renderer;}
 
