@@ -12,8 +12,7 @@ Warrior::Warrior(Properties* props):Character(props)
     m_JumpForce = JUMP_FORCE;
 
     m_Collider = new Collider();                     //Collinder ở trong Physics.
-    m_Collider->SetBuffer(-90, -70, 0, 0);          //thay đổi vị trí collision với ảnh
-
+    m_Collider->SetBuffer(-90, -70, 0, 0);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
     m_RigidBody =  new Rigidbody();
     m_RigidBody->SetGravity(3.0f);
 
@@ -85,17 +84,16 @@ void Warrior::Update(float dt)
     m_Transform->X += m_RigidBody->Position().X;       // hàm này để tăng giá trị của x trong m_Transform sau khi thay đỏi m_RigidBody
     //  m_Transform->TranslateY(m_RigidBody->Position().Y);
 
-      m_Collider->Set(m_Transform->X, m_Transform->Y, 18, 50);
-      //
-     
-  if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
+    m_Collider->Set(m_Transform->X, m_Transform->Y, 18, 50);
+    //dùng để kiểm tra va chạm với map. 18,50 là kích thước của collider
+    
+
+    //Kiểm tra va chạm với map
+    if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
         m_Transform->X = m_LastSafePosition.X;
 
 
-
-     // move on Y axis
-
-
+    // move on Y axis
 
     m_RigidBody->Update(dt);
     m_LastSafePosition.Y = m_Transform->Y;
