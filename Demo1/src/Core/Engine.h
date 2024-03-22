@@ -16,7 +16,7 @@ class Engine {
             return s_Instance = (s_Instance != nullptr)? s_Instance : new Engine();
         }
 
-        bool Init();        //hàm return m_Isrunning=true nếu khởi tạo xong
+        bool Init();        //hàm return m_Isrunning = true nếu khởi tạo xong
         bool Clean();       //Nếu hàm IsFunning return false thì xoá bỏ tất cả
         void Quit();        // thay đổi IsRunning == false
 
@@ -24,7 +24,7 @@ class Engine {
         void Render();      //render các nhân vật,nền và map,...
         void Events();      //đợi sự kiện từ bàn phím
 
-        inline GameMap* GetMap(){return m_LevelMap;}   //
+        inline GameMap* GetMap(){return m_LevelMap;}   //return m_LevelMap là map của game
         inline bool IsRunning(){return m_IsRunning;}
         inline SDL_Renderer* GetRenderer(){return m_Renderer;}
 

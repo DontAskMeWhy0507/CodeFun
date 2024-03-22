@@ -4,13 +4,17 @@
 CollisionHandler* CollisionHandler::s_Instance = nullptr;
 
 CollisionHandler::CollisionHandler(){
-    m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().front();
-    m_CollisionTilemap = m_CollisionLayer->GetTileMap();
+    m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().front();    //Lấy layer đầu tiên của map làm collision lalyer
+    m_CollisionTilemap = m_CollisionLayer->GetTileMap();                    //Lấy tilemap của layer đó. TIlemap là mảng 2 chiều các tile
 }
 
 bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b){
-    bool x_overlaps = (a.x < b.x + b.w) && (a.x + a.w > b.x);
+    
+    //Kiểm tra xem 2 hình chữ nhật có giao nhau không. nếu có thì return true.
+    //Toán tử && trả về true nếu cả 2 điều kiện đều đúng.
+    bool x_overlaps = (a.x < b.x + b.w) && (a.x + a.w > b.x);   
     bool y_overlaps = (a.y < b.y + b.h) && (a.y + a.h > b.y);
+
     return (x_overlaps && y_overlaps);
 }
 

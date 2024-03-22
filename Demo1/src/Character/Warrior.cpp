@@ -11,7 +11,7 @@ Warrior::Warrior(Properties* props):Character(props)
     m_JumpTime = JUMP_TIME;
     m_JumpForce = JUMP_FORCE;
 
-    m_Collider = new Collider();
+    m_Collider = new Collider();                     //Collinder ở trong Physics.
     m_Collider->SetBuffer(-90, -70, 0, 0);          //thay đổi vị trí collision với ảnh
 
     m_RigidBody =  new Rigidbody();
@@ -19,12 +19,15 @@ Warrior::Warrior(Properties* props):Character(props)
 
 
      m_Animation= new Animation();
-m_Animation->SetProps(m_TextureID,1,8,80);//(m_texture,1 row,8 frames,80ms ,SDL_FLIP_HORIZONTAL); thêm dấu phải trong ngoặc () nữa để flip
+    m_Animation->SetProps(m_TextureID,1,8,80);
+    //(m_texture,1 row,8 frames,80ms ,SDL_FLIP_HORIZONTAL); thêm dấu phải trong ngoặc () nữa để flip
 }
 
 void Warrior::Draw()
 {
     m_Animation->Draw(m_Transform->X,m_Transform->Y,m_Width,m_Height);
+    
+    //Hiển thị collider
     Vector2D cam = Camera::GetInstance()->GetPosition();
     SDL_Rect box = m_Collider->Get();
     box.x -= cam.X;
@@ -77,12 +80,14 @@ void Warrior::Update(float dt)
 
 
     m_RigidBody->Update(dt);                            // truyền dt vào là thông số thời gian trôi qua để tính vận tốc và vị wtrí
-        m_LastSafePosition.X = m_Transform->X;
+        m_LastSafePosition.X = m_Transform->X;          // lưu lại vị trí an toàn trước khi di chuyển
 
-       m_Transform->X += m_RigidBody->Position().X;       // hàm này để tăng giá trị của x trong m_Transform sau khi thay đỏi m_RigidBody
-  //  m_Transform->TranslateY(m_RigidBody->Position().Y);
+    m_Transform->X += m_RigidBody->Position().X;       // hàm này để tăng giá trị của x trong m_Transform sau khi thay đỏi m_RigidBody
+    //  m_Transform->TranslateY(m_RigidBody->Position().Y);
 
       m_Collider->Set(m_Transform->X, m_Transform->Y, 18, 50);
+      //
+     
   if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
         m_Transform->X = m_LastSafePosition.X;
 
@@ -106,7 +111,7 @@ void Warrior::Update(float dt)
     }
 
 
-
+    //Thay đổi m_Origin khi nhân vật di chuyển.
     m_Origin->X = m_Transform->X + m_Width/2;
     m_Origin->Y = m_Transform->Y + m_Height/2;
 
