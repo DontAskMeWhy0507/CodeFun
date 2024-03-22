@@ -4,8 +4,10 @@
 CollisionHandler* CollisionHandler::s_Instance = nullptr;
 
 CollisionHandler::CollisionHandler(){
-    m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().front();    //Lấy layer đầu tiên của map làm collision lalyer
-    m_CollisionTilemap = m_CollisionLayer->GetTileMap();                    //Lấy tilemap của layer đó. TIlemap là mảng 2 chiều các tile
+    m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().front();    
+    //Lấy layer đầu tiên của map làm collision lalyer
+    m_CollisionTilemap = m_CollisionLayer->GetTileMap();                    
+    //Lấy tilemap của layer đó. Tilemap là mảng 2 chiều các tile
 }
 
 bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b){

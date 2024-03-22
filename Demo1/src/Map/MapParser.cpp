@@ -3,22 +3,24 @@
 MapParser* MapParser::s_Instance = nullptr;
 
 bool MapParser::Load(){
-    if(!Parse("level1", "assets/maps/map1.tmx"))
+    if(!Parse("level1", "assets/maps/map2.tmx"))
         return false;
     return true;
 }
 
 bool MapParser::Parse(std::string id, std::string source)
 {
-    TiXmlDocument xml;
-    xml.LoadFile(source);
-    if(xml.Error()){
+    TiXmlDocument xml;                          //Tixml Document để load file xml
+    xml.LoadFile(source);                       //Load file xml từ đường dẫn source
+    if(xml.Error()){                            //Kiểm tra lỗi khi load file xml
         std::cerr << "Failed to load: " << source << std::endl;
         return false;
     }
 
-    TiXmlElement* root = xml.RootElement();
+    TiXmlElement* root = xml.RootElement();             
+    //TiXmlElement để lưu trữ các phần tử trong file xml. RootElement() để lấy phần tử gốc của file xml
 
+    //Lấy các giá trị của thuộc tính root.
     int colcount, rowcount, tilesize = 0;
     root->Attribute("width", &colcount);
     root->Attribute("height", &rowcount);

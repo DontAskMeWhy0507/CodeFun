@@ -88,16 +88,19 @@ void Warrior::Update(float dt)
     //dùng để kiểm tra va chạm với map. 18,50 là kích thước của collider
     
 
-    //Kiểm tra va chạm với map
-    if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
+    //Kiểm tra va chạm với map. Nếu va chạm với map thì trả lại vị trí ban đầu trước đó.
+    if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))        //Nếu va chạm với map return true
         m_Transform->X = m_LastSafePosition.X;
 
 
     // move on Y axis
 
     m_RigidBody->Update(dt);
+
     m_LastSafePosition.Y = m_Transform->Y;
+
     m_Transform->Y += m_RigidBody->Position().Y;
+    
     m_Collider->Set(m_Transform->X, m_Transform->Y, 18, 50);
 
     if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get())){

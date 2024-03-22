@@ -16,8 +16,8 @@ class CollisionHandler{
 
     private:
         CollisionHandler();
-        TileMap m_CollisionTilemap;
-        TileLayer* m_CollisionLayer;
+        TileMap m_CollisionTilemap;     // Là vector 2 chiều chứa thông tin về các tile trong map.
+        TileLayer* m_CollisionLayer;    //là layer chứ thông tin của map.
         static CollisionHandler* s_Instance;
 };
 
