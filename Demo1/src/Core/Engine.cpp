@@ -58,6 +58,10 @@ bool Engine::Init(){
     return m_IsRunning = true;
 }
 
+void Engine::Events(){
+  Input::GetInstance()->Listen();
+}
+
 void Engine::Update(){
 
     float dt= Timer::GetInstance()->GetDeltaTime();
@@ -89,10 +93,6 @@ void Engine::Render(){
    SDL_RenderPresent(m_Renderer);                                       //Update m_Renderer lên màn hình sau khi nó được tạo mới
 }
 
-void Engine::Events(){
-  Input::GetInstance()->Listen();
-}
-
 bool Engine::Clean(){
     TextureManager::GetInstance()->Clean();         //Clean của TextủeManager
     MapParser::GetInstance()->Clean();              //Clean của MapParser
@@ -103,6 +103,6 @@ bool Engine::Clean(){
     SDL_Quit();                                     //thoát khỏi sdl
 }
 
-void Engine::Quit(){            //dùng trong function Events của class engine
+void Engine::Quit(){            //dùng trong function Events của class engine. Cốt để thoát khỏi vòng lặp while 
     m_IsRunning = false;
 }

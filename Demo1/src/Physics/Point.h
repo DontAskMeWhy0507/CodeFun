@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+//Là một lớp để lưu trữ tọa độ của các đối tượng trong game.
 class Point {
 
     public:

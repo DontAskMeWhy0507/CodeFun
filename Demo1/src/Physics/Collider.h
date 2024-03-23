@@ -1,6 +1,7 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
+// Là một lớp để xác định collider của các đối tượng trong game.
 
 class Collider
 {
