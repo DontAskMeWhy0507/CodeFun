@@ -48,7 +48,7 @@ bool Engine::Init(){
 
 
 
-    player = new Warrior (new Properties ("player",300,250,200,200));       //(Chỉ số id,x,y,width,height)
+    player = new Warrior (new Properties ("player",300,9370,200,200));       //(Chỉ số id,x,y,width,height)
     //x,y được lưu vào m_Transform. x,y là tọa độ của ảnh trên cửa sổ game
 
 
@@ -68,6 +68,11 @@ void Engine::Update(){
     player->Update(dt);
     //Cho nhân vật di chuyển khi có sự kiện từ bàn phím
 
+    //test
+    float t = Input::GetInstance()->GetKeyDownTime();
+    std::cout<<t<<std::endl;
+
+    //Load map
     m_LevelMap->Update();
 
 
@@ -82,7 +87,7 @@ void Engine::Render(){
 
    /*Load ảnh theo thứ tự nền xong rồi mới nhân vật. Nếu không nhân vật sẽ ở sau nền*/
 
-    TextureManager::GetInstance()->Draw("Background",0,0,1004,500);     //vẽ background lên trên texture.
+    TextureManager::GetInstance()->Draw("Background",0,4250,1504,800);     //vẽ background lên trên texture.(x,y,width,height)
     m_LevelMap->Render();                                           //Tạo map tiled
 
 
@@ -103,6 +108,6 @@ bool Engine::Clean(){
     SDL_Quit();                                     //thoát khỏi sdl
 }
 
-void Engine::Quit(){            //dùng trong function Events của class engine. Cốt để thoát khỏi vòng lặp while 
+void Engine::Quit(){            //dùng trong function Events của class engine. Cốt để thoát khỏi vòng lặp while
     m_IsRunning = false;
 }

@@ -1,63 +1,64 @@
-#include "Engine.h"
-#include "TextureManager.h"
-
-Engine* Engine::s_Instance = nullptr;
-
-bool Engine::Init(){
-
-    if(SDL_Init(SDL_INIT_VIDEO)!=0 || IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG)!= 0){
-        SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
-        return false;
+#include <iostream>
+bool IsJumpRight;
+bool IsJumpLeft;
+bool IsJumpUp;
+bool IsTheKeyReleased;
+int main() 
+{
+    float SoMoi, SoCu;
+    int luu;
+    //Kiểm tra xem phím space đã được thả ra chưa.
+    if(SoMoi <= SoCu && SoCu != 0 )
+    {
+        IsTheKeyReleased = true;
+        luu = SoCu;
     }
+    else IsTheKeyReleased = false;
 
-    m_Window = SDL_CreateWindow("Soft Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREN_HEIGHT, 0);
-    if(m_Window == nullptr){
-        SDL_Log("Failed to create Window: %s", SDL_GetError());
-        return false;
-    }
+        //Kiểm tra xem là nhảy lên,nhảy trái hay nhảy phải.
+        if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE))
+        {
+            IsJumpUp = true;
+            if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D))
+            {
+                IsJumpRight = true;
+                IsJumpUp = false;
+            }
+            else if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A))
+            {
+                IsJumpLeft = true;
+                IsJumpUp = false;
+            }
+          
+        }    
+        if(IsJumpUp && luu != 0)
+        {
+            m_IsJumping = true;
+            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+            luu -=dt;
+            m_Animation->SetProps("Jump",1,2,100); 
+        }
+        else if(IsJumpRight && luu != 0)
+        {
+            m_IsJumping = true;
+            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+            m_RigidBody->ApplyForceX(FORWARD*m_JumpForce);
+            luu -=dt;
+            m_Animation->SetProps("Jump",1,2,100);        }
+        else if (IsJumpLeft && luu != 0)
+        {
+            m_IsJumping = true;
+            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+            m_RigidBody->ApplyForceX(BACKWARD*m_JumpForce);
+            luu -=dt;
+             m_Animation->SetProps("Jump",1,2,100,SDL_FLIP_HORIZONTAL);        
+        }
+        else 
+        {
+            m_IsJumping = false;
+        }
+        
 
-    m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);        //the renderer uses hardware acceleration and the renderer uses hardware acceleration
-    if(m_Renderer == nullptr){
-        SDL_Log("Failed to create Renderer: %s", SDL_GetError());
-        return false;
-    }
-
-    // load texture
-    TextureManager::GetInstance()->Load("tree", "assets/tree.png");
-    return m_IsRunning = true;
 }
 
-void Engine::Update(){
 
-}
-
-void Engine::Render(){
-    SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
-    SDL_RenderClear(m_Renderer);
-
-    // render texture
-    TextureManager::GetInstance()->Draw("tree", 100, 100,347, 465);
-    SDL_RenderPresent(m_Renderer);
-}
-
-void Engine::Events(){
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch(event.type){
-        case SDL_QUIT:              //sự kiện phát sinh khi người dùng đóng cửa sổ
-            Quit();
-            break;
-    }
-}
-
-bool Engine::Clean(){
-    TextureManager::GetInstance()->Clean();
-    SDL_DestroyRenderer(m_Renderer);
-    SDL_DestroyWindow(m_Window);
-    IMG_Quit();
-    SDL_Quit();
-}
-
-void Engine::Quit(){
-    m_IsRunning = false;
-}

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1711117275 source:g:\working\demo3codeblock\demo1\main.cpp
+1711208237 source:g:\working\demo3codeblock\demo1\main.cpp
 	"Engine.h"
 	"Timer.h"
 
@@ -8,7 +8,7 @@
 	"SDL_image.h"
 	"GameMap.h"
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\core\engine.cpp
+1711444831 source:g:\working\demo3codeblock\demo1\src\core\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"Input.h"
@@ -19,7 +19,7 @@
 	<iostream>
 	"Camera.h"
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\graphics\texturemanager.cpp
+1711253939 source:g:\working\demo3codeblock\demo1\src\graphics\texturemanager.cpp
 	"TextureManager.h"
 	"Engine.h"
 	"Camera.h"
@@ -35,7 +35,7 @@
 1711117275 g:\working\demo3codeblock\demo1\src\physics\transform.h
 	"Vector2D.h"
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\character\warrior.cpp
+1711465213 source:g:\working\demo3codeblock\demo1\src\character\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
@@ -44,7 +44,7 @@
 	"CollisionHandler.h"
 	"Camera.h"
 
-1711117275 g:\working\demo3codeblock\demo1\src\character\warrior.h
+1711631255 g:\working\demo3codeblock\demo1\src\character\warrior.h
 	"Character.h"
 	"Animation.h"
 	"RigidBody.h"
@@ -73,16 +73,17 @@
 1711117275 g:\working\demo3codeblock\demo1\src\physics\rigidbody.h
 	"Vector2D.h"
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\inputs\input.cpp
+1711472470 source:g:\working\demo3codeblock\demo1\src\inputs\input.cpp
 	"Input.h"
 	"Engine.h"
+	"Timer.h"
 
-1711117275 g:\working\demo3codeblock\demo1\src\inputs\input.h
+1711444841 g:\working\demo3codeblock\demo1\src\inputs\input.h
 	"SDL.h"
 
-1711117275 g:\working\demo3codeblock\demo1\src\timer\timer.h
+1711208247 g:\working\demo3codeblock\demo1\src\timer\timer.h
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\timer\timer.cpp
+1711208241 source:g:\working\demo3codeblock\demo1\src\timer\timer.cpp
 	"Timer.h"
 	"SDL.h"
 
@@ -155,7 +156,7 @@
 	"tinyxml.h"
 	"TileLayer.h"
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\camera\camera.cpp
+1711287042 source:g:\working\demo3codeblock\demo1\src\camera\camera.cpp
 	"Camera.h"
 
 1711117275 g:\working\demo3codeblock\demo1\src\camera\camera.h
@@ -164,18 +165,18 @@
 	"Engine.h"
 	"Vector2D.h"
 
-1711117275 g:\working\demo3codeblock\demo1\src\physics\point.h
+1711208330 g:\working\demo3codeblock\demo1\src\physics\point.h
 	<iostream>
 
-1711117275 source:g:\working\demo3codeblock\demo1\src\collision\collisionhandler.cpp
+1711413212 source:g:\working\demo3codeblock\demo1\src\collision\collisionhandler.cpp
 	"CollisionHandler.h"
 	"Engine.h"
 
-1711117275 g:\working\demo3codeblock\demo1\src\collision\collisionhandler.h
+1711343699 g:\working\demo3codeblock\demo1\src\collision\collisionhandler.h
 	"SDL.h"
 	<vector>
 	"TileLayer.h"
 	"GameMap.h"
 
-1711117275 g:\working\demo3codeblock\demo1\src\physics\collider.h
+1711208347 g:\working\demo3codeblock\demo1\src\physics\collider.h
 

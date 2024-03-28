@@ -14,7 +14,8 @@ Warrior::Warrior(Properties* props):Character(props)
     m_Collider = new Collider();                     //Collinder ở trong Physics.
     m_Collider->SetBuffer(-90, -70, 0, 0);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
     m_RigidBody =  new Rigidbody();
-    m_RigidBody->SetGravity(3.0f);
+    m_RigidBody->SetGravity(5.0f);
+
 
 
      m_Animation= new Animation();
@@ -25,55 +26,83 @@ Warrior::Warrior(Properties* props):Character(props)
 void Warrior::Draw()
 {
     m_Animation->Draw(m_Transform->X,m_Transform->Y,m_Width,m_Height);
-    
+
     //Hiển thị collider
-    Vector2D cam = Camera::GetInstance()->GetPosition();
+   /* Vector2D cam = Camera::GetInstance()->GetPosition();
     SDL_Rect box = m_Collider->Get();
     box.x -= cam.X;
     box.y -= cam.Y;
-    SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);
+    SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);*/
 }
 
 
 
 void Warrior::Update(float dt)
 {
-    m_Animation->SetProps("player",1,8,100);
+   (!m_TraiPhai) ?  m_Animation->SetProps("player",1,8,100) : m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
+       m_HoldTime  = Input::GetInstance()->GetKeyDownTime();
+
     m_RigidBody->UnSetForce();
 
     //Run backward
-     if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A))
+     if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)&&m_IsGrounded == true)
    {
-           m_RigidBody->ApplyForceX(5*BACKWARD);
+           m_RigidBody->ApplyForceX(3*BACKWARD);
+           m_LastDirection = 1;
+           m_TraiPhai = true;
 
         m_Animation->SetProps("player_run",1,8,100,SDL_FLIP_HORIZONTAL);
    }
 
    //Run forward
-    if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D))
+    if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded == true)
    {
-           m_RigidBody->ApplyForceX(5*FORWARD);
+           m_RigidBody->ApplyForceX(3*FORWARD);
+           m_LastDirection = -1;
+                      m_TraiPhai = false;
+
 
         m_Animation->SetProps("player_run",1,8,100);
    }
+   //jump
 
-    // Jump
-    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_J) && m_IsGrounded){
-        m_IsJumping = true;
-        m_IsGrounded = false;
-        m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && m_IsGrounded && (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) || Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)||Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE))) {
+    m_IsJumping = true;
+    m_IsGrounded = false;
+    m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)) {
+        m_RigidBody->ApplyForceX(5*FORWARD);
+         m_LastDirection = -1;
+    } else if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)) {
+        m_RigidBody->ApplyForceX(5*BACKWARD);
+         m_LastDirection = 1;
+    }
+}
+
+if(m_IsJumping && m_JumpTime > 0 && (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) || Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)||Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE))) {
+    m_JumpTime -= dt;
+    m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)) {
+        m_RigidBody->ApplyForceX(5*FORWARD);
+                 m_LastDirection = -1;
+
+    } else if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)) {
+        m_RigidBody->ApplyForceX(5*BACKWARD);
+                 m_LastDirection = 1;
 
     }
-    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_J) && m_IsJumping && m_JumpTime > 0){
-        m_JumpTime -= dt;
-        m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
-        m_Animation->SetProps("Jump",1,2,100);
+    m_Animation->SetProps("Jump",1,2,100);
+} else {
+    m_IsJumping = false;
+    m_JumpTime = JUMP_TIME;
 
-    }
-    else{
-        m_IsJumping = false;
-        m_JumpTime = JUMP_TIME;
-    }
+
+}
+if( m_LastDirection == 1 && !m_IsGrounded )     m_RigidBody->ApplyForceX(5*BACKWARD);
+    else if(m_LastDirection == -1&& !m_IsGrounded ) m_RigidBody->ApplyForceX(5*FORWARD);
+
+if(    m_IsGrounded &&!Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)  && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) )  m_LastDirection = 0;
+
 
     //move on x axis
 
@@ -86,7 +115,7 @@ void Warrior::Update(float dt)
 
     m_Collider->Set(m_Transform->X, m_Transform->Y, 18, 50);
     //dùng để kiểm tra va chạm với map. 18,50 là kích thước của collider
-    
+
 
     //Kiểm tra va chạm với map. Nếu va chạm với map thì trả lại vị trí ban đầu trước đó.
     if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))        //Nếu va chạm với map return true
@@ -100,7 +129,7 @@ void Warrior::Update(float dt)
     m_LastSafePosition.Y = m_Transform->Y;
 
     m_Transform->Y += m_RigidBody->Position().Y;
-    
+
     m_Collider->Set(m_Transform->X, m_Transform->Y, 18, 50);
 
     if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get())){

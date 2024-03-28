@@ -18,7 +18,7 @@ bool TextureManager::Load(std::string id, std::string filename){
         return false;
     }
 
-    m_TextureMap[id] = texture;
+    m_TextureMap[id] = texture;     //Lưu texture vào map m_TextureMap
     return true;
 }
 
