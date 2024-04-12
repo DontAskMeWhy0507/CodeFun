@@ -46,7 +46,7 @@ class Warrior : public Character
 
 
 
-        float m_Direction = 1;
+        float m_Direction = 1.0f;
         float SoMoi, SoCu;
         float luu;
 
@@ -54,7 +54,7 @@ class Warrior : public Character
 
         float m_JumpTime;
         float m_JumpForce;
-        float m_LastDirection = 0;
+        float m_LastDirection = 0.0f;
         float m_HoldTime;
         float m_LastHoldTime;
 
