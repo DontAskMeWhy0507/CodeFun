@@ -10,8 +10,9 @@ Input::Input(){
 
 void Input::Listen(){
     SDL_Event event;
+    float dt =  Timer ::GetInstance()->GetDeltaTime();
     if (m_KeyStates[SDL_SCANCODE_SPACE])
-                    m_KeyDownTime += 0.5;
+                    m_KeyDownTime += dt;
 
     if(m_KeyDownTime >30) m_KeyDownTime = 30;
     while(SDL_PollEvent(&event)){

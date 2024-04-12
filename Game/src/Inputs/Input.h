@@ -25,6 +25,7 @@ private:
     const Uint8* m_KeyStates;
     static Input* s_Instance;
 
+
     float m_KeyDownTime ;
     SDL_Scancode m_LastKeyDown;
 };

@@ -54,7 +54,7 @@ class Warrior : public Character
 
         float m_JumpTime;
         float m_JumpForce;
-        int m_LastDirection = 0;
+        float m_LastDirection = 0;
         float m_HoldTime;
         float m_LastHoldTime;
 

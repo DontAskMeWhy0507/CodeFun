@@ -235,7 +235,7 @@
 	"Camera.h"
 	<iostream>
 
-1712741015 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
+1712940344 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
 	"Character.h"
 	"Animation.h"
 	"RigidBody.h"
@@ -261,7 +261,7 @@
 
 1712739753 c:\working\lap trinh c++ nang cao\game\src\physics\collider.h
 
-1712741015 c:\working\lap trinh c++ nang cao\game\src\inputs\input.h
+1712938682 c:\working\lap trinh c++ nang cao\game\src\inputs\input.h
 	"SDL.h"
 
 1712741015 c:\working\lap trinh c++ nang cao\game\src\collision\collisionhandler.h
@@ -319,7 +319,7 @@
 	"Engine.h"
 	"Camera.h"
 
-1712741015 source:c:\working\lap trinh c++ nang cao\game\src\inputs\input.cpp
+1712938830 source:c:\working\lap trinh c++ nang cao\game\src\inputs\input.cpp
 	"Input.h"
 	"Engine.h"
 	"Timer.h"
