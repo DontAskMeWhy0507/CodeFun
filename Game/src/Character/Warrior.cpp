@@ -56,7 +56,7 @@ void Warrior::Update(float dt)
      if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)&&m_IsGrounded == true && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE))
    {
            m_RigidBody->ApplyForceX(3*BACKWARD);
-           m_LastDirection = 1;
+           m_LastDirection = -1;
            m_TraiPhai = true;
 
         m_Animation->SetProps("player_run",1,8,100,SDL_FLIP_HORIZONTAL);
@@ -66,7 +66,7 @@ void Warrior::Update(float dt)
     if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded == true&& !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE ))
    {
            m_RigidBody->ApplyForceX(3*FORWARD);
-           m_LastDirection = -1;
+           m_LastDirection = 1;
                       m_TraiPhai = false;
 
 
@@ -113,7 +113,7 @@ void Warrior::Update(float dt)
         else if(IsJumpRight && luu > 0)
         {
             m_IsJumping = true;
-            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce*2);
+            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
             m_RigidBody->ApplyForceX(FORWARD*(31-luu)/3*m_Direction);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
@@ -144,8 +144,8 @@ void Warrior::Update(float dt)
         else    m_IsFalling = false;
 
         //Xử lý rơi
-    if( m_LastDirection == 1 && m_IsFalling   )   {  m_RigidBody->ApplyForceX(2*FORWARD/m_Direction);              m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);}
-    else if(m_LastDirection == -1&& m_IsFalling ) {m_RigidBody->ApplyForceX(2*BACKWARD/m_Direction);                       m_Animation->SetProps("Fall",1,2,100);}
+    if( m_LastDirection == 1 && m_IsFalling   )   {  m_RigidBody->ApplyForceX(2*FORWARD/m_Direction);              m_Animation->SetProps("Fall",1,2,100);}
+    else if(m_LastDirection == -1&& m_IsFalling ) {m_RigidBody->ApplyForceX(2*BACKWARD/m_Direction);                       m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);}
     else if(m_LastDirection == 0&& m_IsFalling)     m_Animation->SetProps("Fall",1,2,100);
     if( m_IsGrounded &&!Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)  && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) )  m_LastDirection = 0;
 
