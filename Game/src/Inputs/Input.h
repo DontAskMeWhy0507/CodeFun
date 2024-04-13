@@ -13,7 +13,7 @@ public:
         return s_Instance;
     }
 
-    void Listen();
+    void Listen(bool Grounded);
     bool GetKeyDown(SDL_Scancode key);
     float GetKeyDownTime(){return m_KeyDownTime;}
 

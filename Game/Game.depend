@@ -195,7 +195,7 @@
 
 1712740375 c:\working\lap trinh c++ nang cao\game\src\map\layer.h
 
-1712739626 c:\working\lap trinh c++ nang cao\game\src\timer\timer.h
+1712980309 c:\working\lap trinh c++ nang cao\game\src\timer\timer.h
 
 1712741015 source:c:\working\lap trinh c++ nang cao\game\src\animation\animation.cpp
 	"Animation.h"
@@ -225,7 +225,7 @@
 1712740012 c:\working\lap trinh c++ nang cao\game\src\physics\vector2d.h
 	<iostream>
 
-1712933704 source:c:\working\lap trinh c++ nang cao\game\src\character\warrior.cpp
+1712981474 source:c:\working\lap trinh c++ nang cao\game\src\character\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
@@ -235,7 +235,7 @@
 	"Camera.h"
 	<iostream>
 
-1712940713 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
+1712982002 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
 	"Character.h"
 	"Animation.h"
 	"RigidBody.h"
@@ -261,7 +261,7 @@
 
 1712739753 c:\working\lap trinh c++ nang cao\game\src\physics\collider.h
 
-1712938682 c:\working\lap trinh c++ nang cao\game\src\inputs\input.h
+1712982366 c:\working\lap trinh c++ nang cao\game\src\inputs\input.h
 	"SDL.h"
 
 1712741015 c:\working\lap trinh c++ nang cao\game\src\collision\collisionhandler.h
@@ -281,7 +281,7 @@
 	"Engine.h"
 	<iostream>
 
-1712932629 source:c:\working\lap trinh c++ nang cao\game\src\engine\engine.cpp
+1712982391 source:c:\working\lap trinh c++ nang cao\game\src\engine\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"Input.h"
@@ -319,7 +319,7 @@
 	"Engine.h"
 	"Camera.h"
 
-1712938830 source:c:\working\lap trinh c++ nang cao\game\src\inputs\input.cpp
+1712982374 source:c:\working\lap trinh c++ nang cao\game\src\inputs\input.cpp
 	"Input.h"
 	"Engine.h"
 	"Timer.h"
@@ -331,7 +331,7 @@
 	"TileLayer.h"
 	"TextureManager.h"
 
-1712739626 source:c:\working\lap trinh c++ nang cao\game\src\timer\timer.cpp
+1712980254 source:c:\working\lap trinh c++ nang cao\game\src\timer\timer.cpp
 	"Timer.h"
 	"SDL.h"
 

@@ -64,7 +64,9 @@ bool Engine::Init(){
 }
 
 void Engine::Events(){
-  Input::GetInstance()->Listen();
+       bool Grounded = player->GetGround();
+
+        Input::GetInstance()->Listen(Grounded);
 }
 
 void Engine::Update(){

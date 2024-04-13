@@ -1,18 +1,21 @@
 #include "Timer.h"
 #include "SDL.h"
 
-//Khi chạy hết 1 vòng while thì deltaTime sẽ được reset lại.Deltatime là thời gia từ ảnh cuối cùng được render đến ảnh tiếp theo được render.
-
 Timer* Timer::s_Instance = nullptr;
 
-void Timer::Tick()
-{
-    m_DeltaTime = (SDL_GetTicks() - m_LastTime) * (TARGET_FPS / 1000.0f);
-    //m_DeltaTime luôn có đơn vị là giây.
+Timer::Timer(){
+    m_LastTime = 0;
+    m_DeltaTime = 0;
+}
 
-    if(m_DeltaTime > TARGET_DELTATIME)
-    {
-        m_DeltaTime = TARGET_DELTATIME;
-    }
+void Timer::Tick(){
+
+    m_DeltaTime = (SDL_GetTicks() - m_LastTime)*FRAME_PER_SECOND;
+
+    if(m_DeltaTime > MAX_DELTA_TIME)
+        m_DeltaTime = MAX_DELTA_TIME;
+
     m_LastTime = SDL_GetTicks();
+
+    SDL_Delay(FRAME_DELAY);
 }

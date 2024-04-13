@@ -21,6 +21,7 @@ class Warrior : public Character
         void Draw() ;
         void Clean() ;
         void Update(float dt) ;
+        bool GetGround() {return m_IsGrounded;};
 
    private:
         void AnimationState();

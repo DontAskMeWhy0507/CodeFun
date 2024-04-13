@@ -41,9 +41,12 @@ void Warrior::Draw()
 
 void Warrior::Update(float dt)
 {
+   //Xử lý trái phải ide
    (!m_TraiPhai) ?  m_Animation->SetProps("player",1,8,100) : m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
-       SoMoi  = Input::GetInstance()->GetKeyDownTime();
-    if( SoCu != 0 && SoMoi == 0 )
+
+    //tính thời gian lưu
+    SoMoi  = Input::GetInstance()->GetKeyDownTime();
+    if( SoCu != 0.0f && SoMoi == 0.0f )
     {
         IsTheKeyReleased = true;
         luu = SoCu;
@@ -75,7 +78,7 @@ void Warrior::Update(float dt)
    //jump
 
 
-   // std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
+    std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
 
         //Kiểm tra xem là nhảy lên,nhảy trái hay nhảy phải.
         if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE)&&Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded)
@@ -114,7 +117,7 @@ void Warrior::Update(float dt)
         {
             m_IsJumping = true;
             m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
-            m_RigidBody->ApplyForceX(FORWARD*(31-luu)/3.0f*m_Direction);
+            m_RigidBody->ApplyForceX(FORWARD*(31.0f-luu)/3.0f*m_Direction);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
             m_LastDirection = 1.0f;
@@ -125,7 +128,7 @@ void Warrior::Update(float dt)
         {
             m_IsJumping = true;
             m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
-            m_RigidBody->ApplyForceX(BACKWARD*(31-luu)/3.0f*m_Direction);
+            m_RigidBody->ApplyForceX(BACKWARD*(31.0f-luu)/3.0f*m_Direction);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100,SDL_FLIP_HORIZONTAL);
             m_LastDirection = -1.0f;
@@ -147,7 +150,7 @@ void Warrior::Update(float dt)
     if( m_LastDirection == 1.0f && m_IsFalling   )   {  m_RigidBody->ApplyForceX(2.0f*FORWARD/m_Direction);              m_Animation->SetProps("Fall",1,2,100);}
     else if(m_LastDirection == -1.0f&& m_IsFalling ) {m_RigidBody->ApplyForceX(2.0f*BACKWARD/m_Direction);                       m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);}
     else if(m_LastDirection == 0.0f&& m_IsFalling)     m_Animation->SetProps("Fall",1,2,100);
-    if( m_IsGrounded &&!Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)  && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) )  m_LastDirection = 0;
+    if( m_IsGrounded &&!Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)  && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) )  m_LastDirection = 0.0f;
 
 
 
@@ -171,7 +174,7 @@ void Warrior::Update(float dt)
       {
         if(!m_IsGrounded)
         {
-            m_Direction = -1;
+            m_Direction = -1.0f;
              m_Transform->X = m_LastSafePosition.X;
         }
 
@@ -200,7 +203,7 @@ void Warrior::Update(float dt)
         m_IsGrounded = true;
         BounceTop = false;
         BounceWall = false;
-        m_Direction = 1;
+        m_Direction = 1.0f;
 
         m_Transform->Y = m_LastSafePosition.Y;
     }
@@ -209,7 +212,6 @@ void Warrior::Update(float dt)
         m_IsCeiling = true;
         m_IsGrounded = false;
         BounceTop = true;
-        std::cout<<"celling";
     }
     else
     {
@@ -217,7 +219,6 @@ void Warrior::Update(float dt)
         BounceTop = false;
 
     }
-
 
     //Thay đổi m_Origin khi nhân vật di chuyển.
     m_Origin->X = m_Transform->X + m_Width/2.0f;

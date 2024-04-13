@@ -1,20 +1,22 @@
 #include "Input.h"
 #include "Engine.h"
 #include "Timer.h"
+
+
 Input* Input::s_Instance = nullptr;
 
 Input::Input(){
     m_KeyStates = SDL_GetKeyboardState(nullptr);
-    m_KeyDownTime = 0;
+    m_KeyDownTime = 0.0f;
 }
 
-void Input::Listen(){
+void Input::Listen(bool Grounded){
     SDL_Event event;
     float dt =  Timer ::GetInstance()->GetDeltaTime();
-    if (m_KeyStates[SDL_SCANCODE_SPACE])
+    if (m_KeyStates[SDL_SCANCODE_SPACE]&&Grounded)
                     m_KeyDownTime += dt;
 
-    if(m_KeyDownTime >30) m_KeyDownTime = 30;
+    if(m_KeyDownTime >30.0f) m_KeyDownTime = 30.0f;
     while(SDL_PollEvent(&event)){
         switch(event.type){
             case SDL_QUIT: Engine::GetInstance()->Quit(); break;
@@ -23,13 +25,14 @@ void Input::Listen(){
                  break;
             case SDL_KEYUP:
                 KeyUp();
-                 if (!m_KeyStates[SDL_SCANCODE_SPACE])   m_KeyDownTime = 0; // Reset thời gian khi phím được thả ra
+                 if (!m_KeyStates[SDL_SCANCODE_SPACE])   m_KeyDownTime = 0.0f;//Reset thời gian khi phím được thả ra
                 break;
         }
     }
 
 
 
+//
 }
 
 
