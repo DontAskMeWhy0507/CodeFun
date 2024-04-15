@@ -7,6 +7,7 @@
 #include "MapParser.h"
 #include <iostream>
 #include "Camera.h"
+#include "SoundManager.h"
 
 
 
@@ -53,19 +54,25 @@ bool Engine::Init(){
 
 
 
-    player = new Warrior (new Properties ("player",300,9370,200,200));       //(Chỉ số id,x,y,width,height)
+    player = new Warrior (new Properties ("player",300,9310,200,200));       //(Chỉ số id,x,y,width,height)
     //x,y được lưu vào m_Transform. x,y là tọa độ của ảnh trên cửa sổ game
 
 
     Camera::GetInstance()->SetTarget(player->GetOrigin());
     //GetOrigin ở trong class GameObject
 
+
+    //Load Musice
+    SoundManager::GetInstance()->LoadMusic("assets/sounds/MainSound.mp3");
+    SoundManager::GetInstance()->PlayMusic(0);
+    SoundManager::GetInstance()->LoadSound("assets/sounds/JumpSound.wav");
+    SoundManager::GetInstance()->LoadSound("assets/sounds/wall.mp3");
+
     return m_IsRunning = true;
 }
 
 void Engine::Events(){
-       bool Grounded = player->GetGround();
-
+        bool Grounded = player->GetGround();
         Input::GetInstance()->Listen(Grounded);
 }
 
@@ -81,6 +88,7 @@ void Engine::Update(){
 
     //Load map
     m_LevelMap->Update();
+
 
 
     Camera::GetInstance()->Update(dt);

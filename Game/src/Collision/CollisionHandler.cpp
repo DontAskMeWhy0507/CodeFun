@@ -4,7 +4,7 @@
 CollisionHandler* CollisionHandler::s_Instance = nullptr;
 
 CollisionHandler::CollisionHandler(){
-    m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().front();
+    m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().back();
     m_CollisionTilemap = m_CollisionLayer->GetTileMap();
 }
 
@@ -59,8 +59,8 @@ bool CollisionHandler::CheckCollisionCeiling(SDL_Rect a, SDL_Rect b){
 }
 
 bool CollisionHandler::MapCollisionGround(SDL_Rect a){
-    int tileSize = 32;
-    int RowCount = 300;
+    int tileSize = 16;
+    int RowCount = 600;
     int ColCount = 60;
 
     int left_tile = a.x/tileSize;
@@ -87,8 +87,8 @@ bool CollisionHandler::MapCollisionGround(SDL_Rect a){
     return false;
 }
 bool CollisionHandler::MapCollisionWall(SDL_Rect a){
-    int tileSize = 32;
-    int RowCount = 300;
+    int tileSize = 16;
+    int RowCount = 600;
     int ColCount = 60;
 
     int left_tile = a.x/tileSize;
@@ -116,8 +116,8 @@ bool CollisionHandler::MapCollisionWall(SDL_Rect a){
 }
 
 bool CollisionHandler::MapCollisionCeiling(SDL_Rect a){
-    int tileSize = 32;
-    int RowCount = 300;
+    int tileSize = 16;
+    int RowCount = 600;
     int ColCount = 60;
 
     int left_tile = a.x/tileSize;

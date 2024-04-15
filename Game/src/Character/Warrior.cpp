@@ -5,16 +5,16 @@
 #include "Engine.h"
 #include "CollisionHandler.h"
 #include "Camera.h"
-
+#include "SoundManager.h"
 #include <iostream>
 
 Warrior::Warrior(Properties* props):Character(props)
 {
-    m_JumpTime = JUMP_TIME;
+
     m_JumpForce = JUMP_FORCE;
 
     m_Collider = new Collider();                     //Collinder ở trong Physics.
-    m_Collider->SetBuffer(-90, -70, 0, 0);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
+    m_Collider->SetBuffer(-90, -70, -10, -10);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
     m_RigidBody =  new Rigidbody();
     m_RigidBody->SetGravity(5.0f);
 
@@ -41,8 +41,9 @@ void Warrior::Draw()
 
 void Warrior::Update(float dt)
 {
-   //Xử lý trái phải ide
-   (!m_TraiPhai) ?  m_Animation->SetProps("player",1,8,100) : m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
+    //Xử lý trái phải ide
+    if(m_LasDirection == 1.0f)   m_Animation->SetProps("player",1,8,100);
+    else if(m_LasDirection == -1.0f)     m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
 
     //tính thời gian lưu
     SoMoi  = Input::GetInstance()->GetKeyDownTime();
@@ -51,16 +52,21 @@ void Warrior::Update(float dt)
         IsTheKeyReleased = true;
         luu = SoCu;
     }
-    else IsTheKeyReleased = false;
+   else IsTheKeyReleased = false;
+    //Xử lý âm thanh nhảy
+    if(IsTheKeyReleased)    {
+
+
+        SoundManager::GetInstance()->PlaySound(0);
+    }
 
     m_RigidBody->UnSetForce();
 
     //Run backward
      if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)&&m_IsGrounded == true && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE))
    {
-           m_RigidBody->ApplyForceX(3.0f*BACKWARD);
-           m_LastDirection = -1.0f;
-           m_TraiPhai = true;
+           m_RigidBody->ApplyForceX(2.0f*BACKWARD);
+           m_LasDirection = -1.0f;
 
         m_Animation->SetProps("player_run",1,8,100,SDL_FLIP_HORIZONTAL);
    }
@@ -68,10 +74,8 @@ void Warrior::Update(float dt)
    //Run forward
     if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded == true&& !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE ))
    {
-           m_RigidBody->ApplyForceX(3.0f*FORWARD);
-           m_LastDirection = 1.0f;
-                      m_TraiPhai = false;
-
+           m_RigidBody->ApplyForceX(2.0f*FORWARD);
+           m_LasDirection = 1.0f;
 
         m_Animation->SetProps("player_run",1,8,100);
    }
@@ -86,13 +90,14 @@ void Warrior::Update(float dt)
             IsJumpUp = false;
             IsJumpRight = true;
             IsJumpLeft = false;
+            m_LasDirection = 1.0f;
         }
         else if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE)&&Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)&&m_IsGrounded)
         {
             IsJumpUp = false;
             IsJumpRight = false;
             IsJumpLeft = true;
-
+            m_LasDirection = -1.0f;
 
         }
        else if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE)&&m_IsGrounded)
@@ -100,11 +105,12 @@ void Warrior::Update(float dt)
             IsJumpUp = true;
             IsJumpRight = false;
             IsJumpLeft = false;
+            m_LasDirection = 0.0f;
         }
 
 
            //Xử lý nhảy
-        if(BounceTop == true ) luu = 0.0f;
+        if(m_IsCeiling == true ) luu = 0.0f;
 
         if(IsJumpUp && luu > 0.0f)
         {
@@ -112,15 +118,18 @@ void Warrior::Update(float dt)
             m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
+
+
+
         }
         else if(IsJumpRight && luu > 0)
         {
             m_IsJumping = true;
             m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
-            m_RigidBody->ApplyForceX(FORWARD*(31.0f-luu)/3.0f*m_Direction);
+            m_RigidBody->ApplyForceX((41.0f-luu)/4.0f*m_LasDirection);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
-            m_LastDirection = 1.0f;
+
 
         }
 
@@ -128,10 +137,10 @@ void Warrior::Update(float dt)
         {
             m_IsJumping = true;
             m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
-            m_RigidBody->ApplyForceX(BACKWARD*(31.0f-luu)/3.0f*m_Direction);
+            m_RigidBody->ApplyForceX((41.0f-luu)/4.0f*m_LasDirection);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100,SDL_FLIP_HORIZONTAL);
-            m_LastDirection = -1.0f;
+
 
         }
         else
@@ -147,10 +156,9 @@ void Warrior::Update(float dt)
         else    m_IsFalling = false;
 
         //Xử lý rơi
-    if( m_LastDirection == 1.0f && m_IsFalling   )   {  m_RigidBody->ApplyForceX(2.0f*FORWARD/m_Direction);              m_Animation->SetProps("Fall",1,2,100);}
-    else if(m_LastDirection == -1.0f&& m_IsFalling ) {m_RigidBody->ApplyForceX(2.0f*BACKWARD/m_Direction);                       m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);}
-    else if(m_LastDirection == 0.0f&& m_IsFalling)     m_Animation->SetProps("Fall",1,2,100);
-    if( m_IsGrounded &&!Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)  && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) )  m_LastDirection = 0.0f;
+    if( m_LasDirection == 1.0f && m_IsFalling   )   {  m_RigidBody->ApplyForceX(2.0f*m_LasDirection);              m_Animation->SetProps("Fall",1,2,100);}
+    else if(m_LasDirection == -1.0f&& m_IsFalling ) {m_RigidBody->ApplyForceX(2.0f*m_LasDirection);                 m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);}
+    else if(m_LasDirection == 0.0f&& m_IsFalling)     m_Animation->SetProps("Fall",1,2,100);
 
 
 
@@ -174,13 +182,20 @@ void Warrior::Update(float dt)
       {
         if(!m_IsGrounded)
         {
-            m_Direction = -1.0f;
-             m_Transform->X = m_LastSafePosition.X;
+                if(m_LasDirection == -1.0f) m_LasDirection = 1.0f ;
+                else if(m_LasDirection == 1.0f)        m_LasDirection = -1.0f;
+
+
+
+                m_Transform->X = m_LastSafePosition.X;
+
+             //load sound
+                SoundManager::GetInstance()->PlaySound(1);
         }
 
         else
         {
-            m_Transform->X = m_LastSafePosition.X;
+                m_Transform->X = m_LastSafePosition.X;
         }
 
       }
@@ -201,9 +216,8 @@ void Warrior::Update(float dt)
     {
         m_IsCeiling = false;
         m_IsGrounded = true;
-        BounceTop = false;
-        BounceWall = false;
-        m_Direction = 1.0f;
+
+
 
         m_Transform->Y = m_LastSafePosition.Y;
     }
@@ -211,18 +225,22 @@ void Warrior::Update(float dt)
     {
         m_IsCeiling = true;
         m_IsGrounded = false;
-        BounceTop = true;
+
+        if(m_LasDirection == -1.0f) m_LasDirection = 1.0f ;
+        else if(m_LasDirection == 1.0f)        m_LasDirection = -1.0f;
+        else m_LasDirection = 0.0f;
+
     }
     else
     {
         m_IsGrounded = false;
-        BounceTop = false;
+
 
     }
 
     //Thay đổi m_Origin khi nhân vật di chuyển.
-    m_Origin->X = m_Transform->X + m_Width/2.0f;
-    m_Origin->Y = m_Transform->Y + 0.5f*m_Height;
+    m_Origin->X = m_Transform->X - 1.6f*m_Width;
+    m_Origin->Y = m_Transform->Y + 0.6f*m_Height;
 
     m_Animation->Update();              //Cập nhật lại giá trị dt
 

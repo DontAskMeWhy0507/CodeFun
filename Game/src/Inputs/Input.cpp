@@ -14,9 +14,9 @@ void Input::Listen(bool Grounded){
     SDL_Event event;
     float dt =  Timer ::GetInstance()->GetDeltaTime();
     if (m_KeyStates[SDL_SCANCODE_SPACE]&&Grounded)
-                    m_KeyDownTime += dt;
+                    m_KeyDownTime += 1.25f*dt;
 
-    if(m_KeyDownTime >30.0f) m_KeyDownTime = 30.0f;
+    if(m_KeyDownTime >40.0f) m_KeyDownTime = 40.0f;
     while(SDL_PollEvent(&event)){
         switch(event.type){
             case SDL_QUIT: Engine::GetInstance()->Quit(); break;

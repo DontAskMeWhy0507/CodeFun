@@ -8,7 +8,7 @@
 #include "Vector2D.h"
 
 #define JUMP_FORCE 10.0f
-#define JUMP_TIME 20.0f;
+
 
 #define RUN_FORCE 4.0f
 #define ATTACK_TIME 20.0f
@@ -34,9 +34,7 @@ class Warrior : public Character
         bool m_IsWall;
         bool m_IsGrounded;
         bool m_IsCrouching;
-        bool m_TraiPhai;
-        bool BounceTop;
-        bool BounceWall;
+
 
 
         bool IsJumpRight;
@@ -47,17 +45,15 @@ class Warrior : public Character
 
 
 
-        float m_Direction = 1.0f;
+
         float SoMoi, SoCu;
         float luu;
 
 
 
-        float m_JumpTime;
         float m_JumpForce;
-        float m_LastDirection = 0.0f;
-        float m_HoldTime;
-        float m_LastHoldTime;
+        float m_LasDirection = 0.0f;       //0 is fall down, 1 is fall right, -1 is fall left
+
 
 
 

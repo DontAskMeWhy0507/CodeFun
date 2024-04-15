@@ -20,8 +20,8 @@ void Camera::Update(float dt){
         }
 
         //Nếu vượt  quá giới hạn n*SCREEN_WIDTH thì giữ nguyên giá trị.
-        if(m_ViewBox.x > (2*SCREEN_WIDTH - m_ViewBox.w)){
-            m_ViewBox.x = (2*SCREEN_WIDTH - m_ViewBox.w);
+        if(m_ViewBox.x > (SCREEN_WIDTH - m_ViewBox.w)){
+            m_ViewBox.x = (SCREEN_WIDTH - m_ViewBox.w);
         }
 
         if(m_ViewBox.y > (15*SCREEN_HEIGHT - m_ViewBox.h)){
