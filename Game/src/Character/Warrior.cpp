@@ -14,7 +14,7 @@ Warrior::Warrior(Properties* props):Character(props)
     m_JumpForce = JUMP_FORCE;
 
     m_Collider = new Collider();                     //Collinder ở trong Physics.
-    m_Collider->SetBuffer(-90, -70, -10, -10);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
+    m_Collider->SetBuffer(-82, -65, -15, -9);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
     m_RigidBody =  new Rigidbody();
     m_RigidBody->SetGravity(5.0f);
 
@@ -46,6 +46,8 @@ void Warrior::Update(float dt)
     else if(m_LasDirection == -1.0f)     m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
 
     //tính thời gian lưu
+    if(SoCu!=0&&m_LasDirection == 1.0f)  m_Animation->SetProps("Crouch",1,1,100);
+    else if(SoCu!=0&&m_LasDirection == -1.0f)  m_Animation->SetProps("Crouch",1,1,100,SDL_FLIP_HORIZONTAL);
     SoMoi  = Input::GetInstance()->GetKeyDownTime();
     if( SoCu != 0.0f && SoMoi == 0.0f )
     {
@@ -55,9 +57,7 @@ void Warrior::Update(float dt)
    else IsTheKeyReleased = false;
     //Xử lý âm thanh nhảy
     if(IsTheKeyReleased)    {
-
-
-        SoundManager::GetInstance()->PlaySound(0);
+            SoundManager::GetInstance()->PlaySound(0);
     }
 
     m_RigidBody->UnSetForce();
@@ -68,6 +68,7 @@ void Warrior::Update(float dt)
            m_RigidBody->ApplyForceX(2.0f*BACKWARD);
            m_LasDirection = -1.0f;
 
+
         m_Animation->SetProps("player_run",1,8,100,SDL_FLIP_HORIZONTAL);
    }
 
@@ -77,12 +78,13 @@ void Warrior::Update(float dt)
            m_RigidBody->ApplyForceX(2.0f*FORWARD);
            m_LasDirection = 1.0f;
 
+
         m_Animation->SetProps("player_run",1,8,100);
    }
    //jump
 
 
-    std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
+  // std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
 
         //Kiểm tra xem là nhảy lên,nhảy trái hay nhảy phải.
         if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE)&&Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded)
@@ -115,7 +117,7 @@ void Warrior::Update(float dt)
         if(IsJumpUp && luu > 0.0f)
         {
             m_IsJumping = true;
-            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+          m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
 
@@ -125,7 +127,7 @@ void Warrior::Update(float dt)
         else if(IsJumpRight && luu > 0)
         {
             m_IsJumping = true;
-            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+       m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
             m_RigidBody->ApplyForceX((41.0f-luu)/4.0f*m_LasDirection);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
@@ -154,10 +156,23 @@ void Warrior::Update(float dt)
            m_IsFalling = true;
         }
         else    m_IsFalling = false;
+        //if(m_RigidBody->Velocity().Y !=0 ) m_IsGrounded = false;
+
+
+
 
         //Xử lý rơi
-    if( m_LasDirection == 1.0f && m_IsFalling   )   {  m_RigidBody->ApplyForceX(2.0f*m_LasDirection);              m_Animation->SetProps("Fall",1,2,100);}
-    else if(m_LasDirection == -1.0f&& m_IsFalling ) {m_RigidBody->ApplyForceX(2.0f*m_LasDirection);                 m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);}
+    if( m_LasDirection == 1.0f && m_IsFalling   )
+        {
+            m_Animation->SetProps("Fall",1,2,100);
+            m_RigidBody->ApplyForceX(2.0f*m_LasDirection);
+        }
+    else if(m_LasDirection == -1.0f&& m_IsFalling )
+     {
+            m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);
+            m_RigidBody->ApplyForceX(2.0f*m_LasDirection);
+
+     }
     else if(m_LasDirection == 0.0f&& m_IsFalling)     m_Animation->SetProps("Fall",1,2,100);
 
 
@@ -184,7 +199,6 @@ void Warrior::Update(float dt)
         {
                 if(m_LasDirection == -1.0f) m_LasDirection = 1.0f ;
                 else if(m_LasDirection == 1.0f)        m_LasDirection = -1.0f;
-
 
 
                 m_Transform->X = m_LastSafePosition.X;

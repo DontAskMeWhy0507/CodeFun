@@ -13,6 +13,7 @@
 #define RUN_FORCE 4.0f
 #define ATTACK_TIME 20.0f
 
+
 class Warrior : public Character
 {
     public:
@@ -34,29 +35,15 @@ class Warrior : public Character
         bool m_IsWall;
         bool m_IsGrounded;
         bool m_IsCrouching;
-
-
-
         bool IsJumpRight;
         bool IsJumpLeft;
         bool IsJumpUp;
         bool IsTheKeyReleased;
 
-
-
-
-
         float SoMoi, SoCu;
         float luu;
-
-
-
         float m_JumpForce;
         float m_LasDirection = 0.0f;       //0 is fall down, 1 is fall right, -1 is fall left
-
-
-
-
 
 
         Collider* m_Collider;

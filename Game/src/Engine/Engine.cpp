@@ -50,7 +50,7 @@ bool Engine::Init(){
     TextureManager::GetInstance()->Load("Background", "assets/Images/bg.png");
     TextureManager::GetInstance()->Load("Jump", "assets/Jump.png");
     TextureManager::GetInstance()->Load("Fall", "assets/Fall.png");
-
+    TextureManager::GetInstance()->Load("Crouch", "assets/Crouch.png");
 
 
 
