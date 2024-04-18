@@ -176,7 +176,7 @@
 1712741335 source:c:\working\codeblocktestc++\gamesdl2\newproject\testgame1\game\src\map\mapparser.cpp
 	"MapParser.h"
 
-1713151974 source:c:\working\lap trinh c++ nang cao\game\main.cpp
+1713228611 source:c:\working\lap trinh c++ nang cao\game\main.cpp
 	<iostream>
 	"SDL.h"
 	"Engine.h"
@@ -184,10 +184,11 @@
 	"SDL_ttf.h"
 	"Timer.h"
 
-1712740012 c:\working\lap trinh c++ nang cao\game\src\engine\engine.h
+1713373741 c:\working\lap trinh c++ nang cao\game\src\engine\engine.h
 	"SDL.h"
 	"SDL_image.h"
 	"GameMap.h"
+	"GameStates.h"
 
 1712740375 c:\working\lap trinh c++ nang cao\game\src\map\gamemap.h
 	<vector>
@@ -205,7 +206,7 @@
 	<string>
 	"SDL.h"
 
-1712741015 c:\working\lap trinh c++ nang cao\game\src\graphics\texturemanager.h
+1713413824 c:\working\lap trinh c++ nang cao\game\src\graphics\texturemanager.h
 	<string>
 	"SDL.h"
 	<map>
@@ -225,7 +226,7 @@
 1712740012 c:\working\lap trinh c++ nang cao\game\src\physics\vector2d.h
 	<iostream>
 
-1713192665 source:c:\working\lap trinh c++ nang cao\game\src\character\warrior.cpp
+1713371485 source:c:\working\lap trinh c++ nang cao\game\src\character\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
@@ -236,7 +237,7 @@
 	"SoundManager.h"
 	<iostream>
 
-1713189625 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
+1713250980 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
 	"Character.h"
 	"Animation.h"
 	"RigidBody.h"
@@ -262,8 +263,10 @@
 
 1712739753 c:\working\lap trinh c++ nang cao\game\src\physics\collider.h
 
-1712982366 c:\working\lap trinh c++ nang cao\game\src\inputs\input.h
+1713373741 c:\working\lap trinh c++ nang cao\game\src\inputs\input.h
 	"SDL.h"
+	<vector>
+	"Vector2D.h"
 
 1712741015 c:\working\lap trinh c++ nang cao\game\src\collision\collisionhandler.h
 	"SDL.h"
@@ -282,7 +285,7 @@
 	"Engine.h"
 	<iostream>
 
-1713193238 source:c:\working\lap trinh c++ nang cao\game\src\engine\engine.cpp
+1713414514 source:c:\working\lap trinh c++ nang cao\game\src\engine\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"Input.h"
@@ -293,6 +296,7 @@
 	<iostream>
 	"Camera.h"
 	"SoundManager.h"
+	"Vector2D.h"
 
 1712741208 c:\working\lap trinh c++ nang cao\game\src\map\mapparser.h
 	<map>
@@ -316,12 +320,12 @@
 	<assert.h>
 	<string.h>
 
-1712741015 source:c:\working\lap trinh c++ nang cao\game\src\graphics\texturemanager.cpp
+1713413824 source:c:\working\lap trinh c++ nang cao\game\src\graphics\texturemanager.cpp
 	"TextureManager.h"
 	"Engine.h"
 	"Camera.h"
 
-1713114967 source:c:\working\lap trinh c++ nang cao\game\src\inputs\input.cpp
+1713373741 source:c:\working\lap trinh c++ nang cao\game\src\inputs\input.cpp
 	"Input.h"
 	"Engine.h"
 	"Timer.h"
@@ -355,7 +359,7 @@
 	"tinyxml.h"
 	<windows.h>
 
-1713180053 source:c:\working\lap trinh c++ nang cao\game\src\sounds\soundmanager.cpp
+1713370555 source:c:\working\lap trinh c++ nang cao\game\src\sounds\soundmanager.cpp
 	"SoundManager.h"
 	"SDL_mixer.h"
 
@@ -365,4 +369,9 @@
 	<vector>
 	<iostream>
 	"SDL_mixer.h"
+
+1713344774 c:\working\lap trinh c++ nang cao\game\src\states\gamestates.h
+
+1713247848 source:c:\working\lap trinh c++ nang cao\game\src\states\gamestates.cpp
+	"GameStates.h"
 

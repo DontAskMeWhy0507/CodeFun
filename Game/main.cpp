@@ -8,6 +8,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+
     Engine::GetInstance()->Init(); // Initialize game engine
 
     //Hàm while để ảnh được render liên tục.

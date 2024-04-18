@@ -30,6 +30,7 @@ void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, SD
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
+
 void TextureManager::DrawFrame(std::string id, int x, int y, int width, int heigt, int row, int frame, SDL_RendererFlip flip){
     SDL_Rect srcRect = {width*frame, heigt*(row-1), width, heigt};
     // lấy phần texturere từ góc trái trên cùng của từng ảnh trong ảnh lớn đến width và heigt của nó. Frame là biến thay đổi từ 0 đến framecount-1.

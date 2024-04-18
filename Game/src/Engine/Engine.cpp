@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Camera.h"
 #include "SoundManager.h"
-
+#include "Vector2D.h"
 
 
 Engine* Engine::s_Instance = nullptr;
@@ -51,6 +51,10 @@ bool Engine::Init(){
     TextureManager::GetInstance()->Load("Jump", "assets/Jump.png");
     TextureManager::GetInstance()->Load("Fall", "assets/Fall.png");
     TextureManager::GetInstance()->Load("Crouch", "assets/Crouch.png");
+    TextureManager::GetInstance()->Load("Menu", "assets/Images/menu.png");
+    TextureManager::GetInstance()->Load("Game", "assets/Images/newgame.png");
+
+
 
 
 
@@ -64,53 +68,70 @@ bool Engine::Init(){
 
     //Load Musice
     SoundManager::GetInstance()->LoadMusic("assets/sounds/MainSound.mp3");
-    SoundManager::GetInstance()->PlayMusic(0);
     SoundManager::GetInstance()->LoadSound("assets/sounds/JumpSound.wav");
     SoundManager::GetInstance()->LoadSound("assets/sounds/wall.mp3");
-
+    SoundManager::GetInstance()->LoadSound("assets/sounds/Run.mp3");
+    //
+    State_Game = State::MENU;
     return m_IsRunning = true;
 }
 
 void Engine::Events(){
         bool Grounded = player->GetGround();
         Input::GetInstance()->Listen(Grounded);
+
+        if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_RETURN))   State_Game = State::GAME;
+        if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE))   State_Game = State::MENU;
 }
 
 void Engine::Update(){
-
     float dt= Timer::GetInstance()->GetDeltaTime();
+   // Point Test(0,0);
+    switch(State_Game){
+
+    case State::MENU:
+    //Camera::GetInstance()->SetTarget(&Test);
+    break;
+
+    case State::GAME:
     player->Update(dt);
     //Cho nhân vật di chuyển khi có sự kiện từ bàn phím
 
-    //test
+    //load music
+    SoundManager::GetInstance()->PlayMusic(0);
    // float t = Input::GetInstance()->GetKeyDownTime();
     //std::cout<<t<<std::endl;
-
     //Load map
     m_LevelMap->Update();
-
-
-
     Camera::GetInstance()->Update(dt);
-
+    break;
 
 }
-
+}
 void Engine::Render(){
+
+   switch(State_Game)
+   {
+    case State::GAME:
     SDL_SetRenderDrawColor(m_Renderer, 124, 418, 954, 955);             //Màu nền của gamme
-   SDL_RenderClear(m_Renderer);                                        //Xóa bỏ nền đen mặc định gây nhiều lỗi
-
+    SDL_RenderClear(m_Renderer);                                        //Xóa bỏ nền đen mặc định gây nhiều lỗi
    /*Load ảnh theo thứ tự nền xong rồi mới nhân vật. Nếu không nhân vật sẽ ở sau nền*/
-
     TextureManager::GetInstance()->Draw("Background",0,4250,1504,800);     //vẽ background lên trên texture.(x,y,width,height)
     m_LevelMap->Render();                                           //Tạo map tiled
-
-
     // render texture
     player->Draw();                                                     //vẽ player lên trên game
+    SDL_RenderPresent(m_Renderer);                                       //Update m_Renderer lên màn hình sau khi nó được tạo mới
+    break;
 
+    case State::MENU:
+    SDL_SetRenderDrawColor(m_Renderer, 124, 418, 954, 955);
+    SDL_RenderClear(m_Renderer);
+    TextureManager::GetInstance()->Draw("Menu",0,0,1000,891);
+    TextureManager::GetInstance()->Draw("Game",0,240,355,118);
 
-   SDL_RenderPresent(m_Renderer);                                       //Update m_Renderer lên màn hình sau khi nó được tạo mới
+    SDL_RenderPresent(m_Renderer);
+    break;
+    }
 }
 
 bool Engine::Clean(){

@@ -44,11 +44,11 @@ void Warrior::Update(float dt)
     //Xử lý trái phải ide
     if(m_LasDirection == 1.0f)   m_Animation->SetProps("player",1,8,100);
     else if(m_LasDirection == -1.0f)     m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
-
     //tính thời gian lưu
     if(SoCu!=0&&m_LasDirection == 1.0f)  m_Animation->SetProps("Crouch",1,1,100);
     else if(SoCu!=0&&m_LasDirection == -1.0f)  m_Animation->SetProps("Crouch",1,1,100,SDL_FLIP_HORIZONTAL);
     SoMoi  = Input::GetInstance()->GetKeyDownTime();
+
     if( SoCu != 0.0f && SoMoi == 0.0f )
     {
         IsTheKeyReleased = true;
@@ -66,6 +66,7 @@ void Warrior::Update(float dt)
      if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)&&m_IsGrounded == true && !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE))
    {
            m_RigidBody->ApplyForceX(2.0f*BACKWARD);
+
            m_LasDirection = -1.0f;
 
 
@@ -76,6 +77,7 @@ void Warrior::Update(float dt)
     if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded == true&& !Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE ))
    {
            m_RigidBody->ApplyForceX(2.0f*FORWARD);
+
            m_LasDirection = 1.0f;
 
 
@@ -84,7 +86,7 @@ void Warrior::Update(float dt)
    //jump
 
 
-  // std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
+   std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
 
         //Kiểm tra xem là nhảy lên,nhảy trái hay nhảy phải.
         if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE)&&Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded)
@@ -107,7 +109,6 @@ void Warrior::Update(float dt)
             IsJumpUp = true;
             IsJumpRight = false;
             IsJumpLeft = false;
-            m_LasDirection = 0.0f;
         }
 
 
@@ -117,11 +118,9 @@ void Warrior::Update(float dt)
         if(IsJumpUp && luu > 0.0f)
         {
             m_IsJumping = true;
-          m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
+            m_RigidBody->ApplyForceY(UPWARD*m_JumpForce);
             luu -=dt;
-            m_Animation->SetProps("Jump",1,2,100);
-
-
+            (m_LasDirection==1.0f)?m_Animation->SetProps("Jump",1,2,100): m_Animation->SetProps("Jump",1,2,100,SDL_FLIP_HORIZONTAL);
 
         }
         else if(IsJumpRight && luu > 0)
@@ -131,8 +130,6 @@ void Warrior::Update(float dt)
             m_RigidBody->ApplyForceX((41.0f-luu)/4.0f*m_LasDirection);
             luu -=dt;
             m_Animation->SetProps("Jump",1,2,100);
-
-
         }
 
         else if (IsJumpLeft && luu >0)
@@ -149,31 +146,33 @@ void Warrior::Update(float dt)
         {
             m_IsJumping = false;
         }
-
+        LastFalling = m_IsFalling;
         //Kiểm tra xem có đang rơi  không
         if(m_RigidBody->Velocity().Y > 0 && !m_IsGrounded)
         {
            m_IsFalling = true;
         }
         else    m_IsFalling = false;
-        //if(m_RigidBody->Velocity().Y !=0 ) m_IsGrounded = false;
+
+
+        if(LastFalling&&m_IsGrounded)                 SoundManager::GetInstance()->PlaySound(2);
 
 
 
 
         //Xử lý rơi
-    if( m_LasDirection == 1.0f && m_IsFalling   )
+    if( m_LasDirection == 1.0f && m_IsFalling&&!IsJumpUp   )
         {
             m_Animation->SetProps("Fall",1,2,100);
             m_RigidBody->ApplyForceX(2.0f*m_LasDirection);
         }
-    else if(m_LasDirection == -1.0f&& m_IsFalling )
+    else if(m_LasDirection == -1.0f&& m_IsFalling&&!IsJumpUp )
      {
             m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);
             m_RigidBody->ApplyForceX(2.0f*m_LasDirection);
 
      }
-    else if(m_LasDirection == 0.0f&& m_IsFalling)     m_Animation->SetProps("Fall",1,2,100);
+    else if(IsJumpUp&& m_IsFalling) (m_LasDirection==1.0f)?m_Animation->SetProps("Fall",1,2,100):m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);
 
 
 
@@ -203,7 +202,7 @@ void Warrior::Update(float dt)
 
                 m_Transform->X = m_LastSafePosition.X;
 
-             //load sound
+
                 SoundManager::GetInstance()->PlaySound(1);
         }
 
@@ -242,7 +241,7 @@ void Warrior::Update(float dt)
 
         if(m_LasDirection == -1.0f) m_LasDirection = 1.0f ;
         else if(m_LasDirection == 1.0f)        m_LasDirection = -1.0f;
-        else m_LasDirection = 0.0f;
+
 
     }
     else

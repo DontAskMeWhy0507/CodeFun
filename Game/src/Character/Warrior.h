@@ -34,16 +34,17 @@ class Warrior : public Character
         bool m_IsCeiling;
         bool m_IsWall;
         bool m_IsGrounded;
-        bool m_IsCrouching;
         bool IsJumpRight;
         bool IsJumpLeft;
         bool IsJumpUp;
         bool IsTheKeyReleased;
+        bool LastFalling = false;
 
         float SoMoi, SoCu;
         float luu;
         float m_JumpForce;
-        float m_LasDirection = 0.0f;       //0 is fall down, 1 is fall right, -1 is fall left
+        float m_LasDirection = 1.0f;       //0 is fall down, 1 is fall right, -1 is fall left
+
 
 
         Collider* m_Collider;

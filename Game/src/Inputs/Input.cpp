@@ -16,7 +16,7 @@ void Input::Listen(bool Grounded){
     if (m_KeyStates[SDL_SCANCODE_SPACE]&&Grounded)
                     m_KeyDownTime += 1.25f*dt;
 
-    if(m_KeyDownTime >40.0f) m_KeyDownTime = 40.0f;
+    if(m_KeyDownTime >40.0f) m_KeyDownTime = 0.0f;
     while(SDL_PollEvent(&event)){
         switch(event.type){
             case SDL_QUIT: Engine::GetInstance()->Quit(); break;
@@ -27,6 +27,7 @@ void Input::Listen(bool Grounded){
                 KeyUp();
                  if (!m_KeyStates[SDL_SCANCODE_SPACE])   m_KeyDownTime = 0.0f;//Reset thời gian khi phím được thả ra
                 break;
+
         }
     }
 
@@ -52,3 +53,5 @@ void Input::KeyUp(){
 void Input::KeyDown(){
     m_KeyStates = SDL_GetKeyboardState(nullptr);
 }
+
+

@@ -53,8 +53,11 @@ int SoundManager::PlayMusic(int m)
 }
 int SoundManager::PlaySound(int s)
 {
-    Mix_Volume(-1,volume*5);
+    Mix_Volume(-1,volume);
+    //Xử lý tiếng chạy bị lồng vào nhau.
+   // if(!Mix_Playing(-1))
     Mix_PlayChannel(-1,filesounds[s],0);
+  //  else if(s!=2) Mix_PlayChannel(-1,filesounds[s],0);
     return 0;
 }
 

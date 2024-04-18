@@ -4,7 +4,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "GameMap.h"
-
+#include "GameStates.h"
 
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 640
@@ -27,6 +27,8 @@ class Engine {
         inline GameMap* GetMap(){return m_LevelMap;}   //return m_LevelMap là map của game
         inline bool IsRunning(){return m_IsRunning;}
         inline SDL_Renderer* GetRenderer(){return m_Renderer;}
+
+        State State_Game;
 
     private:
         Engine(){}
