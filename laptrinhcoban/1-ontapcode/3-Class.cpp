@@ -18,3 +18,10 @@ int main() {
     hello.Print();
     return 0;
 }
+
+/*
+class tmp
+{ int a,int b;
+//truy cap vao a, b trong ham class tmp co 2 cach : (*this).a hoac this->a;
+};
+*/
