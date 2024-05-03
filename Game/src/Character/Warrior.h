@@ -7,7 +7,7 @@
 #include "Collider.h"
 #include "Vector2D.h"
 
-#define JUMP_FORCE 10.0f
+#define JUMP_FORCE 13.0f
 
 
 #define RUN_FORCE 4.0f

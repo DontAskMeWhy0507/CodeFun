@@ -1,38 +1,29 @@
 #include <iostream>
-#include <string>
 using namespace std;
-
-int n, m;
-int a[100];
-int cn, cm;
-
-void print() {
-    for (int i = 1; i <= n + m; i++)
-        cout << a[i];
-    cout << endl;
+bool check (char a)
+{
+    if(a>=0&&a<=9)return true;
+    return false;
 }
-
-void Try(int i) {
-    for (int j = 0; j < 2; j++) {
-        if ((j == 0 && cn > 0) || (j == 1 && cm > 0)) {
-            a[i] = j;
-            if (j == 0) cn--;
-            else cm--;
-            if (i == n + m) {
-                print();
-            } else {
-                Try(i + 1);
-            }
-            if (j == 0) cn++;
-            else cm++;
-        }
+int main()
+{
+    int a = 0,b = 0;
+    string fraction;
+    cin >> fraction;
+    int len = fraction.length();
+    while(len--)
+    {
+        if(fraction[len] == '/') break;
+        if(!check(fraction[len])) throw "Bad fraction string.";
+        int tmp = fraction[len] - '0';
+        b *= 10;
+        b += tmp;
     }
-}
-
-int main() {
-    cin >> n >> m;
-    cn = n;
-    cm = m;
-    Try(1);
-    return 0;
+    while(len--)
+    {
+        if(!check(fraction[len])) throw "Bad fraction string.";
+        int tmp = fraction[len] - '0';
+        a *= 10;
+        a += tmp;
+    }
 }

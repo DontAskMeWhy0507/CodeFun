@@ -14,14 +14,14 @@ Warrior::Warrior(Properties* props):Character(props)
     m_JumpForce = JUMP_FORCE;
 
     m_Collider = new Collider();                     //Collinder ở trong Physics.
-    m_Collider->SetBuffer(-82, -65, -15, -9);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
+    m_Collider->SetBuffer(-79, -45, -29, -2);          //thay đổi giá trị buffer để collider không bị lệch so với nhân vật
     m_RigidBody =  new Rigidbody();
     m_RigidBody->SetGravity(5.0f);
 
 
 
      m_Animation= new Animation();
-    m_Animation->SetProps(m_TextureID,1,8,80);
+    m_Animation->SetProps(m_TextureID,1,6,80);
     //(m_texture,1 row,8 frames,80ms ,SDL_FLIP_HORIZONTAL); thêm dấu phải trong ngoặc () nữa để flip
 }
 
@@ -42,8 +42,8 @@ void Warrior::Draw()
 void Warrior::Update(float dt)
 {
     //Xử lý trái phải ide
-    if(m_LasDirection == 1.0f)   m_Animation->SetProps("player",1,8,100);
-    else if(m_LasDirection == -1.0f)     m_Animation->SetProps("player",1,8,100,SDL_FLIP_HORIZONTAL);
+    if(m_LasDirection == 1.0f)   m_Animation->SetProps("player",1,2,250);
+    else if(m_LasDirection == -1.0f)     m_Animation->SetProps("player",1,2,250,SDL_FLIP_HORIZONTAL);
     //tính thời gian lưu
     if(SoCu!=0&&m_LasDirection == 1.0f)  m_Animation->SetProps("Crouch",1,1,100);
     else if(SoCu!=0&&m_LasDirection == -1.0f)  m_Animation->SetProps("Crouch",1,1,100,SDL_FLIP_HORIZONTAL);
@@ -70,7 +70,7 @@ void Warrior::Update(float dt)
            m_LasDirection = -1.0f;
 
 
-        m_Animation->SetProps("player_run",1,8,100,SDL_FLIP_HORIZONTAL);
+        m_Animation->SetProps("player_run",1,6,100,SDL_FLIP_HORIZONTAL);
    }
 
    //Run forward
@@ -81,12 +81,12 @@ void Warrior::Update(float dt)
            m_LasDirection = 1.0f;
 
 
-        m_Animation->SetProps("player_run",1,8,100);
+        m_Animation->SetProps("player_run",1,6,100);
    }
    //jump
 
 
-   std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
+ //  std::cout<<"Somoi "<<SoMoi<<' '<<"SoCu "<<SoCu<<" SoLuu "<<luu<<std::endl;
 
         //Kiểm tra xem là nhảy lên,nhảy trái hay nhảy phải.
         if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE)&&Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)&&m_IsGrounded)
@@ -163,16 +163,16 @@ void Warrior::Update(float dt)
         //Xử lý rơi
     if( m_LasDirection == 1.0f && m_IsFalling&&!IsJumpUp   )
         {
-            m_Animation->SetProps("Fall",1,2,100);
+            m_Animation->SetProps("Fall",1,1,100);
             m_RigidBody->ApplyForceX(2.0f*m_LasDirection);
         }
     else if(m_LasDirection == -1.0f&& m_IsFalling&&!IsJumpUp )
      {
-            m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);
+            m_Animation->SetProps("Fall",1,1,100,SDL_FLIP_HORIZONTAL);
             m_RigidBody->ApplyForceX(2.0f*m_LasDirection);
 
      }
-    else if(IsJumpUp&& m_IsFalling) (m_LasDirection==1.0f)?m_Animation->SetProps("Fall",1,2,100):m_Animation->SetProps("Fall",1,2,100,SDL_FLIP_HORIZONTAL);
+    else if(IsJumpUp&& m_IsFalling) (m_LasDirection==1.0f)?m_Animation->SetProps("Fall",1,1,100):m_Animation->SetProps("Fall",1,1,100,SDL_FLIP_HORIZONTAL);
 
 
 
@@ -252,6 +252,7 @@ void Warrior::Update(float dt)
     }
 
     //Thay đổi m_Origin khi nhân vật di chuyển.
+   // std::cout<<"x"<<m_Origin->X<<'y'<<m_Origin->Y<<std::endl;
     m_Origin->X = m_Transform->X - 1.6f*m_Width;
     m_Origin->Y = m_Transform->Y + 0.6f*m_Height;
 

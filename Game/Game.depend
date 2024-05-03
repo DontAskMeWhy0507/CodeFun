@@ -211,22 +211,22 @@
 	"SDL.h"
 	<map>
 
-1713008665 source:c:\working\lap trinh c++ nang cao\game\src\camera\camera.cpp
+1713502564 source:c:\working\lap trinh c++ nang cao\game\src\camera\camera.cpp
 	"Camera.h"
+	<iostream>
 
-1712741015 c:\working\lap trinh c++ nang cao\game\src\camera\camera.h
+1713502576 c:\working\lap trinh c++ nang cao\game\src\camera\camera.h
 	"SDL.h"
-	"Point.h"
 	"Engine.h"
 	"Vector2D.h"
 
 1712739753 c:\working\lap trinh c++ nang cao\game\src\physics\point.h
 	<iostream>
 
-1712740012 c:\working\lap trinh c++ nang cao\game\src\physics\vector2d.h
+1713443282 c:\working\lap trinh c++ nang cao\game\src\physics\vector2d.h
 	<iostream>
 
-1713371485 source:c:\working\lap trinh c++ nang cao\game\src\character\warrior.cpp
+1714747273 source:c:\working\lap trinh c++ nang cao\game\src\character\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
@@ -237,7 +237,7 @@
 	"SoundManager.h"
 	<iostream>
 
-1713250980 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
+1714747273 c:\working\lap trinh c++ nang cao\game\src\character\warrior.h
 	"Character.h"
 	"Animation.h"
 	"RigidBody.h"
@@ -247,11 +247,10 @@
 1712741015 c:\working\lap trinh c++ nang cao\game\src\character\character.h
 	"GameObject.h"
 
-1712740375 c:\working\lap trinh c++ nang cao\game\src\object\gameobject.h
+1713443351 c:\working\lap trinh c++ nang cao\game\src\object\gameobject.h
 	"IObject.h"
 	"Transform.h"
 	"SDL.h"
-	"Point.h"
 
 1712740375 c:\working\lap trinh c++ nang cao\game\src\object\iobject.h
 
@@ -285,7 +284,7 @@
 	"Engine.h"
 	<iostream>
 
-1713414514 source:c:\working\lap trinh c++ nang cao\game\src\engine\engine.cpp
+1714744857 source:c:\working\lap trinh c++ nang cao\game\src\engine\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"Input.h"
@@ -320,7 +319,7 @@
 	<assert.h>
 	<string.h>
 
-1713413824 source:c:\working\lap trinh c++ nang cao\game\src\graphics\texturemanager.cpp
+1714746949 source:c:\working\lap trinh c++ nang cao\game\src\graphics\texturemanager.cpp
 	"TextureManager.h"
 	"Engine.h"
 	"Camera.h"

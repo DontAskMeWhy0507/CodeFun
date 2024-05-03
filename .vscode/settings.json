@@ -131,6 +131,11 @@
     "charconv": "cpp",
     "optional": "cpp",
     "string_view": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "expected": "cpp",
+    "format": "cpp",
+    "ranges": "cpp",
+    "span": "cpp",
+    "stacktrace": "cpp"
   }
 }

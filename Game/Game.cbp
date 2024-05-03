@@ -84,7 +84,6 @@
 		<Unit filename="src/Object/GameObject.h" />
 		<Unit filename="src/Object/IObject.h" />
 		<Unit filename="src/Physics/Collider.h" />
-		<Unit filename="src/Physics/Point.h" />
 		<Unit filename="src/Physics/Rigidbody.h" />
 		<Unit filename="src/Physics/Transform.h" />
 		<Unit filename="src/Physics/Vector2D.h" />

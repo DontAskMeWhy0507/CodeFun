@@ -19,4 +19,8 @@ int main ()
     daotu(p);
     cout << p << endl;
 }
+// Hàm substring
+// Hàm substring trả về chuỗi con của chuỗi gốc, bắt đầu từ vị trí pos và có độ dài len.
+// Cú pháp:
+// string substr(int pos, int len) const;
 

@@ -4,7 +4,7 @@
 #include "IObject.h"
 #include "Transform.h"
 #include "SDL.h"
-#include "Point.h"
+
 
 struct Properties{
 
@@ -34,17 +34,17 @@ class GameObject : public IObject {
 
             float px = props->X + props->Width/2;
             float py = props->Y + props->Height/2;
-            m_Origin = new Point(px, py);
+            m_Origin = new Vector2D(px, py);
         }
 
-        inline Point* GetOrigin(){return m_Origin;}
+        inline Vector2D* GetOrigin(){return m_Origin;}
 
         virtual void Draw()=0;
         virtual void Clean()=0;
         virtual void Update(float dt)=0;
 
     protected:
-        Point* m_Origin;
+        Vector2D* m_Origin;
         Transform* m_Transform;
         int m_Width, m_Height;
         std::string m_TextureID;

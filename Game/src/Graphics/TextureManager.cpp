@@ -32,7 +32,7 @@ void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, SD
 
 
 void TextureManager::DrawFrame(std::string id, int x, int y, int width, int heigt, int row, int frame, SDL_RendererFlip flip){
-    SDL_Rect srcRect = {width*frame, heigt*(row-1), width, heigt};
+    SDL_Rect srcRect = {64*frame, 64*(row-1), 64, 64};
     // lấy phần texturere từ góc trái trên cùng của từng ảnh trong ảnh lớn đến width và heigt của nó. Frame là biến thay đổi từ 0 đến framecount-1.
     Vector2D cam = Camera::GetInstance()->GetPosition();
     SDL_Rect dstRect = {x - cam.X, y-cam.Y, width, heigt};
