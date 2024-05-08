@@ -136,6 +136,9 @@
     "format": "cpp",
     "ranges": "cpp",
     "span": "cpp",
-    "stacktrace": "cpp"
+    "stacktrace": "cpp",
+    "spanstream": "cpp",
+    "stop_token": "cpp",
+    "syncstream": "cpp"
   }
 }

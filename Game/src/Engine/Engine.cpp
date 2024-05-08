@@ -52,19 +52,19 @@ bool Engine::Init(){
     TextureManager::GetInstance()->Load("Background2", "assets/Images/he.png");
     TextureManager::GetInstance()->Load("Background3", "assets/Images/thu.png");
     TextureManager::GetInstance()->Load("Background4", "assets/Images/dong.png");
-    TextureManager::GetInstance()->Load("Background5", "assets/Images/bg5.png");
+    TextureManager::GetInstance()->Load("Background5", "assets/Images/6.png");
+    TextureManager::GetInstance()->Load("Background6", "assets/Images/final.png");
 
     TextureManager::GetInstance()->Load("Jump", "assets/Jump.png");
     TextureManager::GetInstance()->Load("Fall", "assets/Fall.png");
     TextureManager::GetInstance()->Load("Crouch", "assets/Crouch.png");
+
     TextureManager::GetInstance()->Load("Menu", "assets/Images/menu.png");
-    TextureManager::GetInstance()->Load("Game", "assets/Images/newgame.png");
 
 
 
 
-
-    player = new Warrior (new Properties ("player",300,9310,200,200));       //(Chỉ số id,x,y,width,height)
+    player = new Warrior (new Properties ("player",300,9330,200,200));       //(Chỉ số id,x,y,width,height)
     //x,y được lưu vào m_Transform. x,y là tọa độ của ảnh trên cửa sổ game
 
 
@@ -78,7 +78,7 @@ bool Engine::Init(){
     SoundManager::GetInstance()->LoadSound("assets/sounds/wall.mp3");
     SoundManager::GetInstance()->LoadSound("assets/sounds/Run.mp3");
     //
-    State_Game = State::GAME;
+    State_Game = State::MENU;
     return m_IsRunning = true;
 }
 
@@ -127,6 +127,8 @@ void Engine::Render(){
         TextureManager::GetInstance()->Draw("Background3",0,2650,1504,800);
         TextureManager::GetInstance()->Draw("Background4",0,1850,1504,800);
         TextureManager::GetInstance()->Draw("Background5",0,1050,1504,800);
+        TextureManager::GetInstance()->Draw("Background6",0,500,1504,800);
+
 
         m_LevelMap->Render();                                           //Tạo map tiled
         // render texture
@@ -137,8 +139,7 @@ void Engine::Render(){
     case State::MENU:
         SDL_SetRenderDrawColor(m_Renderer, 124, 418, 954, 955);
         SDL_RenderClear(m_Renderer);
-        TextureManager::GetInstance()->Draw("Menu",0,0,1000,891);//vẽ background lên trên texture.(x,y,width,height)
-        TextureManager::GetInstance()->Draw("Game",0,240,355,118);
+        TextureManager::GetInstance()->Draw("Menu",0,0,960,640);//vẽ background lên trên texture.(x,y,width,height)
         SDL_RenderPresent(m_Renderer);
     break;
     }
