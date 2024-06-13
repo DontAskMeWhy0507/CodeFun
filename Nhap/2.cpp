@@ -1,29 +1,18 @@
-#include <iostream>
-using namespace std;
-bool check (char a)
+Node* addLastNode (Node* head, int value)
 {
-    if(a>=0&&a<=9)return true;
-    return false;
-}
-int main()
-{
-    int a = 0,b = 0;
-    string fraction;
-    cin >> fraction;
-    int len = fraction.length();
-    while(len--)
+    Node* newnode = head;
+    Node* tmp = new Node();
+    tmp->value = value;
+    tmp->nextNode = nullptr;
+    if(head == nullptr)
     {
-        if(fraction[len] == '/') break;
-        if(!check(fraction[len])) throw "Bad fraction string.";
-        int tmp = fraction[len] - '0';
-        b *= 10;
-        b += tmp;
+        head = tmp;
+        return head;
     }
-    while(len--)
+    while(newnode->nextNode  !=nullptr)
     {
-        if(!check(fraction[len])) throw "Bad fraction string.";
-        int tmp = fraction[len] - '0';
-        a *= 10;
-        a += tmp;
+        newnode = newnode->nextNode;
     }
+    newnode->nextNode =  tmp;
+    return head;
 }
