@@ -1,15 +1,24 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-    string s;
-    getline(cin, s);
-    stringstream ss (s);
-    string token;
-    stack<string> st;
-    while(ss >> token)
-    {
-        st.push(token);
-        
+class Solution {
+public:
+    bool isValid(string s) {
+        stack <char> st;
+        for(char c: s)
+        {
+            if(c=='[' || c == '{' || c == '(')
+            {
+                st.push(c);
+            }
+            else
+            {
+                if  (st.empty() ||
+                    (c == ')' && st.top() != '(') ||
+                    (c == ']' && st.top() != ']') ||
+                    (c == '}' && st.top() != '}')
+                ) return false;
+                st.pop();
+            }
+        }
+                    return st.empty();
+
     }
-}
+};
