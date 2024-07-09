@@ -1,18 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
-long long  main()
+int n; int a[1000];
+
+
+
+void print()
 {
-    long long  n;
-    cin >> n; 
-    long long  a[n];
-    for(long long  i = 0; i < n; ++i) cin >> a[i];
-    long long  ans = 999999999;
-    for(long long  i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        for(long long  j = i + 1; j < n; j++)
-        {
-            if(a[i] > a[j]) ans = min(ans, a[i] - a[j]);
-        }
+        cout << a[i] << ' ';
     }
-    cout << ans;
+    cout << endl;
+}
+void Try(int k)
+{
+    for(int j = 0; j <= 1; j++)
+    {
+        a[k] = j;
+        if(k == n)
+        {
+            print();
+        }
+        else Try(k+1);
+    }
+}
+
+
+int main()
+{
+    cin >> n;
+    Try(1);
 }

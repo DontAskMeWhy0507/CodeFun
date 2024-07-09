@@ -1,57 +1,68 @@
 #include <iostream>
-#include <string>
 using namespace std;
-int main()
-{
-    string hello = "Hello World";
-    string number = "123";
-    cout << hello + number << "\n";
-    return 0;
-    //chỉ có thế này chứ không có cout<<"Hello"+ "World123\n";
-}
 
-#ifndef GAMEOBJECT_H
-#define GAMEOBJECT_H
+#define N 10
+#define M 10
 
-#include "IObject.h"
-#include "Transform.h"
+class CaroGame {
+public:
+    int board[N][M];
+    int n;
+    int m;
+    int player;
+    int opponent;
 
-struct Properties{
-
-    public
-        Properties(std::string textureID, int x, int y, int width, int height, SDL_RendererFlip flip = SDL_FLIP_NONE){
-            X = x;
-            Y = y;
-            Flip = flip;
-            Width = width;
-            Height = height;
-            TextureID = textureID;
+    CaroGame(int n, int m) {
+        this->n = n;
+        this->m = m;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                board[i][j] = 0;
+            }
         }
+        player = 1;
+        opponent = 2;
+    }
 
-    public:
-        std::string TextureID;
-        int Width, Height;
-        float X, Y;
-        SDL_RendererFlip Flip;
-}
+    void printBoard() {
+        //implement this
+    }
 
-class GameObject : public IObject {
-    public:
-        GameObject(Properties* props) m_TextureID(props->TextureID),
-            m_Width(props->Width), m_Height(props->Height), m_Flip(props->Flip){
+    bool isMoveValid(int x, int y) {
+       //implement this
+    }
 
-            m_Transform = new Transform(props->X, props->Y);
+    bool isWin(int x, int y) {
+       //implement this
+    }
+
+    bool tick(int x, int y) {
+       //implement this
+    }
+
+    void run() {
+        while (true) {
+            printBoard();
+            cout << "Player " << player << " input move:" << endl;
+            int x, y;
+            cin >> x >> y;
+
+            if (isMoveValid(x, y)) {
+                bool isEndGame = tick(x, y);
+                if (isEndGame) {
+                    printBoard();
+                    break;
+                }
+            } else {
+                cout << "Invalid move" << endl;
+            }
         }
-
-        virtual void Draw()=0;
-        virtual void Clean()=0;
-        virtual void Update(float dt)=0;
-
-    protected:
-        Transform* m_Transform;
-        int m_Width, m_Height;
-        std::string m_TextureID;
-        SDL_RendererFlip m_Flip;
+    }
 };
 
-#endif // GAMEOBJECT_H
+int main() {
+    CaroGame caroGame(10, 10);
+    caroGame.run();
+    return 0;
+}
+
