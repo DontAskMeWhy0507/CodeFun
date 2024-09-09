@@ -164,5 +164,9 @@
     "ios": "cpp",
     "locale": "cpp",
     "stack": "cpp"
-  }
+  },
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "Java/stdlib.jar"
+  ]
 }

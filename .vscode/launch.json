@@ -2,6 +2,34 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Array",
+      "request": "launch",
+      "mainClass": "Array",
+      "projectName": "lap trinh c++ nang cao_ca498e90"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "lap trinh c++ nang cao_ca498e90"
+    },
+    {
+      "type": "java",
+      "name": "Heart",
+      "request": "launch",
+      "mainClass": "heart.Heart",
+      "projectName": "lap trinh c++ nang cao_ca498e90"
+    },
+    {
+      "type": "java",
+      "name": "StackQueue",
+      "request": "launch",
+      "mainClass": "StackQueue",
+      "projectName": "lap trinh c++ nang cao_ca498e90"
+    },
+    {
       "name": "(Windows) Launch",
       "type": "cppvsdbg",
       "request": "launch",
