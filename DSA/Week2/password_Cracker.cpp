@@ -16,24 +16,24 @@ vector<string> split(const string &);
  */
 
 string passwordCracker(vector<string> passwords, string loginAttempt) {
-    // Write your code here
     int n = loginAttempt.size();
-    vector<string> dp(n + 1, "");
-    dp[0] = " ";
+    unordered_map<int, string> f;
+    f[0] = "";
     for (int i = 0; i < n; i++) {
-        if (dp[i] != "") {
+        if (f.find(i) != f.end()) {
             for (string password : passwords) {
                 int m = password.size();
                 if (i + m <= n && loginAttempt.substr(i, m) == password) {
-                    if (dp[i + m] == "") {
-                        dp[i + m] = dp[i] + " " + password;
+                    if (f.find(i + m) == f.end() || f[i + m].size() > f[i].size() + password.size()) {
+                        f[i + m] = f[i] + (f[i].empty() ? "" : " ") + password;
                     }
                 }
             }
         }
     }
-    return dp[n] == "" ? "WRONG PASSWORD" : dp[n].substr(1);
+    return f.find(n) == f.end() ? "WRONG PASSWORD" : f[n];
 }
+
 
 int main()
 {
