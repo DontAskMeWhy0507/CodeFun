@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Heart",
+      "request": "launch",
+      "mainClass": "src.Heart",
+      "projectName": "CodeC++_675e1d00"
+    },
+    {
+      "type": "java",
+      "name": "Heart",
+      "request": "launch",
+      "mainClass": "Heart",
+      "projectName": "CodeC++_675e1d00"
+    },
+    {
+      "type": "java",
       "name": "Array",
       "request": "launch",
       "mainClass": "Array",

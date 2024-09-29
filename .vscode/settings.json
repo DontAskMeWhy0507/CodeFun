@@ -167,6 +167,7 @@
   },
   "java.project.referencedLibraries": [
     "lib/**/*.jar",
-    "Java/stdlib.jar"
+    "Java/stdlib.jar",
+    "c:\\Working\\OOP\\stdlib.jar"
   ]
 }
