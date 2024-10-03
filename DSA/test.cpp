@@ -1,51 +1,54 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
-
-int main() {
-    int Q;
-    cin >> Q;
-    string ans = "";
-    stack <string> prev;
-    prev.push(ans);
-    stack <int> st;
-    while (Q--) {
-        int n;
-        cin >> n;
-        if(n == 1) {
-
-            string s;
-            cin >> s;
-            ans += s;
-            st.push(1);
-        }
-        else if(n == 2) {
-            prev = ans;
-            int k;
-            cin >> k;
-            ans = ans.substr(0, ans.size() - k);
-            st.push(2);
-        }
-        else if(n == 3) {
-            int k;
-            cin >> k;
-            cout << ans[k - 1] << endl;
-        }
-        else {
-            if(st.top() == 1) {
-                ans = prev;
-                st.pop();
+// Mỗi bước lặp chọn phần tử nhỏ nhất trong mảng lên đầu mảng
+void SelectionSort (int a[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int min = i;
+        for (int j = i + 1; j < n; j++) {
+            if (a[j] < a[min]) {
+                min = j;
             }
-            else {
-                ans = prev;
-                st.pop();
+        }
+        if (min != i) {
+            swap(a[i], a[min]);
+        }
+    }
+}
+
+// Mỗi bước lặp đổi chỗ 2 phần tử liền kề nếu chúng không theo thứ tự
+void BubbleSort (int a[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                swap(a[j], a[j + 1]);
             }
         }
     }
+}
 
-    return 0;
+// Mỗi bước lặp chèn phần tử vào đúng vị trí trong mảng đã sắp xếp
+void InsertionSort (int a[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = a[i];
+        int j = i - 1;
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+}
+
+void CountingSort (int a[], int n) {
+    
+}
+
+int main() {
+    int n = 10;
+    int a[] = {10, 29, 2, 30, 1, 99, 100, 3, 4, 5};
+    //SelectionSort(a, n);
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
 }
