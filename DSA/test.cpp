@@ -1,44 +1,51 @@
-#include <bits/stdc++.h>
-
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-string ltrim(const string &);
-string rtrim(const string &);
 
-/*
- * Complete the 'powerSum' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER X
- *  2. INTEGER N
- */
+int main() {
+    int Q;
+    cin >> Q;
+    string ans = "";
+    stack <string> prev;
+    prev.push(ans);
+    stack <int> st;
+    while (Q--) {
+        int n;
+        cin >> n;
+        if(n == 1) {
 
-int power(int n,int k)
-{
-    int res=1;
-    for (int i=1; i<=k; i++)
-    {
-        res*=n;
-        if (res>1e9) return 1e9;
-        
-    }
-    return res;
-}
-
-int powerSum(int X, int N) {
-    int f[1001];
-    memset(f,0,sizeof(f));
-    f[1] = 1;
-    f[0] = 1;
-    for(int i = 2; i <= X; i++)
-    {
-        for(int j = X; j >= power(i,N); j--)
-        {
-            f[j] += f[j - power(i,N)];
+            string s;
+            cin >> s;
+            ans += s;
+            st.push(1);
+        }
+        else if(n == 2) {
+            prev = ans;
+            int k;
+            cin >> k;
+            ans = ans.substr(0, ans.size() - k);
+            st.push(2);
+        }
+        else if(n == 3) {
+            int k;
+            cin >> k;
+            cout << ans[k - 1] << endl;
+        }
+        else {
+            if(st.top() == 1) {
+                ans = prev;
+                st.pop();
+            }
+            else {
+                ans = prev;
+                st.pop();
+            }
         }
     }
-    return f[X];
+
+    return 0;
 }
-
-
