@@ -3,6 +3,12 @@
   "configurations": [
     {
       "type": "java",
+      "name": "solution",
+      "request": "launch",
+      "mainClass": "solution"
+    },
+    {
+      "type": "java",
       "name": "Heart",
       "request": "launch",
       "mainClass": "src.Heart",
