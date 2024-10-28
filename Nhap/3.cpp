@@ -1,33 +1,19 @@
-#include <bits/stdc++.h>
-using namespace std;
-int n; int a[1000];
 
-
-
-void print()
-{
-    for (int i = 1; i <= n; i++)
-    {
-        cout << a[i] << ' ';
-    }
-    cout << endl;
-}
-void Try(int k)
-{
-    for(int j = 0; j <= 1; j++)
-    {
-        a[k] = j;
-        if(k == n)
-        {
-            print();
-        }
-        else Try(k+1);
-    }
-}
-
-
-int main()
-{
-    cin >> n;
-    Try(1);
+int cookies(int k, vector<int> A) {
+    int ans = 0;
+    priority_queue<int,vector<int>,greater<int>> pq;
+    for (auto x : A) pq.push(x);
+    while (pq.size() > 1 && pq.top() < k) {
+        int first = pq.top();
+        pq.pop();
+        int second = pq.top();
+        pq.pop();
+        int newCookies = first +second*2;
+        pq.push(newCookies);
+        ans++;
+    } 
+    if (pq.top() < k) return -1;
+    
+    return ans;
+    
 }

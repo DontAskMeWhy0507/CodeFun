@@ -163,7 +163,8 @@
     "__verbose_abort": "cpp",
     "ios": "cpp",
     "locale": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "queue": "cpp"
   },
   "java.project.referencedLibraries": [
     "lib/**/*.jar",
