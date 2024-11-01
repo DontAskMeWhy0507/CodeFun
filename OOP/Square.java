@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Square extends Rectangle {
     public Square() {
     }
@@ -8,6 +10,10 @@ public class Square extends Rectangle {
 
     public Square(double side, String color, boolean filled) {
         super(side, side, color, filled);
+    }
+
+    public Square(Point topLeft, double side, String color, boolean filled) {
+        super(topLeft, side, side, color, filled);
     }
 
     /**
@@ -46,8 +52,26 @@ public class Square extends Rectangle {
      * @return String nao do
      */
     public String toString() {
-        return "Square[side=" + getSide()
+        return "Square["
+                + "topLeft=" + getTopLeft().toString()
+                + ",side=" + getSide()
                 + ",color=" + getColor()
                 + ",filled=" + isFilled() + "]";
     }
+
+    /**
+     * Khong co gi.
+     */
+    public boolean equals(Object o) {
+        if (o instanceof Square) {
+            Square s = (Square) o;
+            return Math.abs(getWidth() - s.getWidth()) < 0.001
+                    && getTopLeft().equals(s.getTopLeft());
+        }
+        return false;
+     }
+
+     public int hashCode() {
+         return Objects.hash(topLeft, width);
+     }
 }

@@ -1,3 +1,4 @@
+import java.util.Objects;
 public class Point {
     private double pointX;
     private double pointY;
@@ -23,13 +24,22 @@ public class Point {
         this.pointY = pointY;
     }
 
+    /**
+     * Doc cai gi.
+     * @param newPoint ads 
+     * @return a sdf asd
+     */
     public double distance(Point newPoint) {
-        return Math.sqrt((newPoint.getPointX() - this.pointX) * (newPoint.getPointX() - this.pointX) 
+        return Math.sqrt((newPoint.getPointX() - this.pointX) 
+        * (newPoint.getPointX() - this.pointX) 
         + (newPoint.getPointY() - this.pointY) * (newPoint.getPointY() - this.pointY));
     }
 
-    public boolean equal(Object o) {
-        if (o instanceof Point) {   // 
+    /**
+     * Khong co gi dau.
+     */
+    public boolean equals(Object o) {
+        if (o instanceof Point) {   
             Point newPoint = (Point) o;
             return Math.abs(this.pointX - newPoint.getPointX()) <= 0.001
             && Math.abs(this.pointY - newPoint.getPointY()) <= 0.001;
@@ -43,7 +53,7 @@ public class Point {
     }
 
     public int hashCode() {
-        return (int) (pointX * 1000 + pointY * 1000);
+        return Objects.hash(pointX, pointY);
     }
 
 
