@@ -1,6 +1,9 @@
+import java.util.Objects;
+
 public class Rectangle extends Shape {
     protected double width;
     protected double length;
+    protected Point topLeft;
 
     /**
      * Trung dz.
@@ -29,6 +32,29 @@ public class Rectangle extends Shape {
         super(color, filled);
         this.width = width;
         this.length = length;
+    }
+    
+    /**
+     * Khong co gi dau.
+     * @param topLeft aab
+     * @param width asdf
+     * @param length asd fas
+     * @param color asdf
+     * @param filled asdf asd
+     */
+    public Rectangle(Point topLeft, double width, double length, String color, boolean filled) {
+        super(color, filled);
+        this.topLeft = topLeft;
+        this.width = width;
+        this.length = length;
+    }
+
+    public Point getTopLeft() {
+        return topLeft;
+    }
+
+    public void setTopLeft(Point topLeft) {
+        this.topLeft = topLeft;
     }
 
     /**
@@ -80,9 +106,28 @@ public class Rectangle extends Shape {
      * @return abc
      */
     public String toString() {
-        return "Rectangle[width=" + width
+        return "Rectangle["
+                + "topLeft=" + topLeft.toString()
+                + ",width=" + width
                 + ",length=" + length
                 + ",color=" + getColor()
                 + ",filled=" + isFilled() + "]";
     }
+
+    /**
+     * Khong co gi dau.
+     */
+    public boolean equals(Object o) {
+        if (o instanceof Rectangle) {
+            Rectangle r = (Rectangle) o;
+            return Math.abs(r.getLength() - length) < 0.001
+                    && Math.abs(r.getWidth() - width) < 0.001
+                    && r.getTopLeft().equals(topLeft);
+        }
+        return false;
+     }
+
+     public int hashCode() {
+            return Objects.hash(topLeft, width, length);
+     }
 }
