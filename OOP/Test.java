@@ -1,15 +1,6 @@
-class SuperClass {
-    public static void main(String[] args) {
-        System.out.println("Main method in SuperClass");
+public class Test extends father{
+    protected void print() {
+        System.out.println("Test");
     }
-}
 
-class A extends SuperClass {
-    // Không định nghĩa main()
-}
-
-public class Test {
-    public static void main(String[] args) {
-        A.main(args); // Gọi main từ lớp SuperClass
-    }
 }
