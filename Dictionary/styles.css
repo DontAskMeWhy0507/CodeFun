@@ -1,0 +1,9 @@
+#popup-container {
+  padding: 10px;
+  font-family: Arial, sans-serif;
+}
+
+#selected-text {
+  font-size: 14px;
+  color: #333;
+}

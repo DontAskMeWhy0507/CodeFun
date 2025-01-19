@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Test",
+      "request": "launch",
+      "mainClass": "Test",
+      "projectName": "CodeC++_675e1d00"
+    },
+    {
+      "type": "java",
+      "name": "Week10",
+      "request": "launch",
+      "mainClass": "Week10",
+      "projectName": "CodeC++_675e1d00"
+    },
+    {
+      "type": "java",
       "name": "solution",
       "request": "launch",
       "mainClass": "solution"
