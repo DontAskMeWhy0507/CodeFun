@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // Định nghĩa kích thước pop-up
     let width = 400;
-    let height = 200;
+    let height = 600;
 
     // Sử dụng chrome.system.display để lấy thông tin về màn hình
     chrome.system.display.getInfo((displays) => {
@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               console.log('Response from popup:', response); // Log the response from popup
               sendResponse({ status: 'popup created' }); // Send response back to content script
             });
-          }, 500); // Delay of 500ms
+          }, 1000); // Delay of 1000ms
         });
       }
     });
