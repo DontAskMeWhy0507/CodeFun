@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const exampleElement = document.getElementById('example');
   const nextBtn = document.getElementById('next'); // Next button for navigation
   const prevBtn = document.getElementById('prev'); // Previous button for navigation
+  const readMoreBtn = document.getElementById('read-more'); // Read More button
 
   let wordef = [];
   let index = 0;
@@ -29,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (text.split(' ').length === 1) {
         dictionary(text);
+        translateText(text);
+
       } else {
         readTextAloud(text);
         translateText(text);
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
         indlimit = wordef[0].meanings.length;
         word = wordef[0].word;
         phonetic = wordef[0].phonetic || '';
-        sourceurl = `https://en.wiktionary.org/wiki/${word}`;
+        sourceurl = `https://www.google.com/search?q=define%20${word}`;
         let audioUrl = wordef[0].phonetics.length > 0 ? wordef[0].phonetics[0].audio : null;
 
         // Fallback to Google Translate if no audio is found
@@ -104,9 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function setValues() {
     const pos = wordef[0].meanings[index].partOfSpeech;
     const definition = wordef[0].meanings[index].definitions[0].definition;
-    const example = wordef[0].meanings[index].definitions[0].example || "No example available.";
+    const example = wordef[0].meanings[index].definitions[0].example || NULL;
 
-    document.getElementById("word").innerHTML = `${word} <a href=${sourceurl} class="searchanchor" target="_blank">Read More</a>`;
+    // Remove the initial "Read More" button
+    document.getElementById("word").innerHTML = '';
+
     document.getElementById("phonetic").innerHTML = `${phonetic}  (${pos})`;
     document.getElementById("definition").innerHTML = definition;
     document.getElementById("example").innerHTML = example;
@@ -115,6 +120,11 @@ document.addEventListener('DOMContentLoaded', function () {
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === indlimit - 1;
   }
+
+  // Handle Read More button click
+  readMoreBtn.addEventListener('click', function () {
+    window.open(sourceurl, '_blank');
+  });
 
   function readTextAloud(text) {
     if ('speechSynthesis' in window) {
