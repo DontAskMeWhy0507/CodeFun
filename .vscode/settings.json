@@ -164,7 +164,8 @@
     "ios": "cpp",
     "locale": "cpp",
     "stack": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "gena_playing_hanoi": "cpp"
   },
   "java.project.referencedLibraries": [
     "lib/**/*.jar",

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Từ Điển</title>
+  <style>
+    /* Reset & Cấu trúc cơ bản */
+    body {
+      font-family: 'Arial', sans-serif;
+      width: 350px;
+      height: 600px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      margin: 0;
+      box-sizing: border-box;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      color: #2c3e50;
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 26px;
+      color: #34495e;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .spinner {
+      display: none;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-top-color: #4caf50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    #selected-text {
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    .content-section {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-top: 15px;
+      width: 100%;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .content-section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #definition {
+      font-size: 16px;
+      color: #444;
+    }
+
+    #example {
+      font-size: 15px;
+      color: #666;
+      font-style: italic;
+    }
+
+    #translation {
+      font-size: 16px;
+      color: #007bff;
+    }
+
+    #phonetic {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8e44ad;
+    }
+
+    #error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 10px 0;
+      background-color: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: center;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #219150;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background-color: #b7b7b7;
+      cursor: not-allowed;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .searchbutton {
+      background-color: #2980b9;
+    }
+
+    .searchbutton:hover {
+      background-color: #1f6391;
+    }
+
+    #navigatecontainer {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    #prev, #next, #pronounce {
+      background-color: #27ae60;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 30%;
+    }
+
+    #prev:hover, #next:hover {
+      background-color: #219150;
+    }
+
+    #pronounce {
+      background-color: #f4b400;
+    }
+
+    #pronounce:hover {
+      background-color: #f39c12;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h3>Từ Điển Mini</h3>
+  <div id="spinner" class="spinner"></div>
+  <p id="selected-text">Chưa có văn bản được chọn.</p>
+  <div id="word"></div>
+  <div id="phonetic" class="content-section"></div>
+  <div id="definition" class="content-section"></div>
+  <div id="example" class="content-section"></div>
+  <div id="translation" class="content-section"></div>
+  <div id="error"></div>
+  <button id="read-more" class="searchbutton">Xem Thêm</button>
+  <div id="navigatecontainer" class="hidden">
+    <button id="prev">Trước</button>
+    <button id="next">Tiếp</button>
+    <button id="pronounce">Phát Âm</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
