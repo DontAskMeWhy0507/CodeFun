@@ -113,7 +113,6 @@
       font-weight: 600;
       transition: all 0.3s ease;
       text-align: center;
-      width: 100%;
     }
 
     button:hover {
@@ -122,53 +121,71 @@
     }
 
     button:disabled {
-      background-color: #b7b7b7;
+      background-color: #d3d3d3 !important;
+      color: #888 !important;
       cursor: not-allowed;
+      opacity: 0.6;
     }
 
     .hidden {
       display: none;
     }
 
-    .searchbutton {
-      background-color: #2980b9;
-    }
-
-    .searchbutton:hover {
-      background-color: #1f6391;
-    }
-
+    /* Navigation Container */
     #navigatecontainer {
       display: flex;
       justify-content: space-between;
       width: 100%;
       margin-top: 15px;
+      gap: 5px;
     }
 
     #prev, #next, #pronounce {
+      flex: 1;
       background-color: #27ae60;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      width: 30%;
-    }
-
-    #prev:hover, #next:hover {
-      background-color: #219150;
+      padding: 12px;
+      font-size: 14px;
     }
 
     #pronounce {
       background-color: #f4b400;
+      flex: 0 0 40%;
     }
 
-    #pronounce:hover {
-      background-color: #f39c12;
-      transform: scale(1.05);
+    /* AI Buttons Container */
+    #ai-buttons-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    #ai-translate, #ai-explain {
+      flex: 1;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    #ai-translate {
+      background-color: #2980b9;
+    }
+
+    #ai-translate:hover {
+      background-color: #1f6391;
+    }
+
+    #ai-explain {
+      background-color: #9b59b6;
+    }
+
+    #ai-explain:hover {
+      background-color: #8e44ad;
+    }
+
+    #read-more {
+      width: 100%;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -176,18 +193,27 @@
   <h3>Từ Điển Mini</h3>
   <div id="spinner" class="spinner"></div>
   <p id="selected-text">Chưa có văn bản được chọn.</p>
-  <div id="word"></div>
+  
   <div id="phonetic" class="content-section"></div>
   <div id="definition" class="content-section"></div>
   <div id="example" class="content-section"></div>
   <div id="translation" class="content-section"></div>
+  
   <div id="error"></div>
+  
   <button id="read-more" class="searchbutton">Xem Thêm</button>
+
   <div id="navigatecontainer" class="hidden">
     <button id="prev">Trước</button>
     <button id="next">Tiếp</button>
     <button id="pronounce">Phát Âm</button>
   </div>
+
+  <div id="ai-buttons-container" class="hidden">
+    <button id="ai-translate">Dịch bằng AI</button>
+    <button id="ai-explain">Giải thích AI</button>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
