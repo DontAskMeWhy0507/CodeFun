@@ -6,8 +6,7 @@ def parse_functional_dependencies(input_string):
        rhs = list(rhs.strip())
        dependencies.append((lhs, rhs))
    return dependencies
-
-
+   
 def find_attribute_closure(attributes, functional_dependencies):
    closure = set(attributes)
    while True:
