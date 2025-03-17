@@ -12,8 +12,8 @@ int main() {
     mkfifo(FIFO_PATH, 0666);
 
     char message[] = "Hello from Writer!";
-    int fd = open(FIFO_PATH, O_WRONLY);    // Open FIFO for writing
-    write(fd, message, strlen(message) + 1);    // Write message
+    int fd = open(FIFO_PATH, O_WRONLY);  // Open FIFO for writing
+    write(fd, message, strlen(message) + 1);  // Write message
     close(fd);
 
     printf("Message sent: %s\n", message);

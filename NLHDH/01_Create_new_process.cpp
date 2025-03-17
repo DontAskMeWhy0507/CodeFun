@@ -18,7 +18,7 @@ int main()
         value = 2024;
         printf("Parent: value = %d\n", value);
     }
-    else {    // Child process
+    else {    // Child process: return_val = 0
         printf("Child process: return_val = %d my ID = %d parent process ID = %d\n",
             return_val, getpid(), getppid());
         printf("Child: value = %d\n", value);
