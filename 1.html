@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { display: flex; min-height: 100vh; }
+    /* Sidebar */
+    .sidebar { width: 240px; background: #FF9C00; padding: 20px; color: #fff; }
+    .sidebar .logo { margin-bottom: 40px; }
+    .sidebar nav ul { list-style: none; }
+    .sidebar nav ul li { margin: 20px 0; cursor: pointer; }
+    .sidebar nav ul li.active { font-weight: bold; }
+    .sidebar nav ul li:hover { opacity: 0.8; }
+    .sidebar button.overview { background: #fff; color: #FF9C00; border: none; padding: 10px 20px; margin-bottom: 20px; cursor: pointer; }
+    /* Main content */
+    .main { flex: 1; background: #f7f7f7; padding: 20px; overflow-y: auto; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { text-decoration: none; color: #333; padding: 8px 12px; border-radius: 5px; }
+    .nav-links a.active, .nav-links a:hover { background: #e0e0e0; }
+    .user { display: flex; align-items: center; gap: 10px; }
+    .user .avatar { width: 32px; height: 32px; border: 2px solid #333; border-radius: 50%; }
+    .user button { padding: 8px 16px; background: #FF5C5C; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    /* Grid layout */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .card { background: #fff; border: 2px solid #333; border-radius: 8px; padding: 20px; }
+    .card.yellow { background: #FFF48F; }
+    .card.green { background: #AED581; }
+    .card.blue { background: #81D4FA; }
+    .card.orange { background: #FFAB91; }
+    /* Chart area */
+    .stat-chart { width: 100%; height: 300px; border: 2px solid #333; border-radius: 8px; padding: 10px; }
+    .stat-header { display: flex; justify-content: space-between; align-items: center; }
+    .stat-header button { padding: 6px 12px; border: 2px solid #333; background: none; border-radius: 5px; cursor: pointer; }
+    /* Lists and items */
+    .task-list, .events { list-style: none; }
+    .task-list li, .events li { background: #fff; border: 2px solid #333; border-radius: 5px; margin: 10px 0; padding: 12px; }
+    .events li { display: flex; align-items: center; gap: 10px; }
+    .events li .date { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="logo.png" alt="LingoLooma Logo" width="100">
+    </div>
+    <button class="overview">Overview</button>
+    <nav>
+      <ul>
+        <li>Khóa học của tôi</li>
+        <li>Luyện tập</li>
+        <li>Lịch sử học tập</li>
+        <li>Tin nhắn</li>
+        <li>Cài đặt</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <!-- Header -->
+    <div class="header">
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">About Us</a>
+        <a href="#">Pricing</a>
+        <a href="#" class="active">Contact</a>
+      </div>
+      <div class="user">
+        <div class="avatar"></div>
+        <button>Sign out</button>
+      </div>
+    </div>
+
+    <!-- Stats & Homework -->
+    <section class="grid">
+      <div class="card">
+        <div class="stat-header">
+          <h2>Stat</h2>
+          <button>View all</button>
+        </div>
+        <div class="stat-chart">
+          <!-- Placeholder for chart -->        
+        </div>
+      </div>
+      <div class="card yellow">
+        <h2>Điểm</h2>
+        <ul>
+          <li>Điểm Writing</li>
+          <li>Điểm Speaking</li>
+          <li>Điểm Listening</li>
+        </ul>
+        <div class="score-circle">7.5</div>
+      </div>
+      <div class="card green">
+        <h2>Bài tập về nhà</h2>
+        <ul class="task-list">
+          <li>Làm bài speaking part 1</li>
+          <li>Viết dàn ý writing part 2</li>
+          <li>Ghi nhớ 30 từ vựng mới</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Classes -->
+    <section>
+      <h2>Classes</h2>
+      <button>View all</button>
+      <div class="grid">
+        <div class="card green">Tổng ôn Speaking</div>
+        <div class="card orange">Tổng ôn Writing</div>
+        <div class="card blue">Tổng ôn Listening</div>
+      </div>
+    </section>
+
+    <!-- Practice Exam -->
+    <section>
+      <h2>Luyện đề</h2>
+      <div class="card" style="display:flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3>Đề Cambridge 2022</h3>
+          <p>Đề hay để luyện trước thi</p>
+          <a href="#">Read More</a>
+        </div>
+        <div>
+          <p>100 Participants</p>
+          <div>50%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming events -->
+    <section>
+      <h2>Upcoming events</h2>
+      <div class="card" style="padding: 20px;">
+        <button>&larr;</button>
+        <span>Feb, 2025</span>
+        <button>&rarr;</button>
+        <ul class="events">
+          <li><span class="date">3rd</span> Tổng ôn Speaking</li>
+          <li><span class="date">5th</span> Chữa đề Cambridge 2023</li>
+          <li><span class="date">6th</span> Học chuyên đề 8 Writing</li>
+          <li><span class="date">7th</span> Thi Listening</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
