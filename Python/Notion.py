@@ -3,9 +3,10 @@ import pandas as pd
 import time
 import re
 import json
+import os
 
 # === CẤU HÌNH API KEY ===
-NOTION_API_KEY = "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" # 🔑 Đặt API key tại đây
+NOTION_API_KEY = os.getenv("NOTION_TOKEN")  # 🔑 Đặt API key tại đây
 # For production, use environment variables. For testing, ensure this is your SECRET key.
 
 HEADERS = {
