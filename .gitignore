@@ -16,3 +16,8 @@ venv/
 # Ignore OS-specific junk
 .DS_Store
 Thumbs.db
+
+
+
+.venv/
+venv/
