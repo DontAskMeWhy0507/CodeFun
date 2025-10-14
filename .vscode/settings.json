@@ -165,7 +165,8 @@
     "locale": "cpp",
     "stack": "cpp",
     "queue": "cpp",
-    "gena_playing_hanoi": "cpp"
+    "gena_playing_hanoi": "cpp",
+    "text_encoding": "cpp"
   },
   "java.project.referencedLibraries": [
     "lib/**/*.jar",

@@ -1,76 +1,85 @@
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-import numpy as np
-import math
+import requests
+from bs4 import BeautifulSoup
+import json
 
-# --------------------------
-# 1️⃣ Load dữ liệu
-# --------------------------
-data = load_iris()
-X = data.data
-y = data.target
+class LinkedInJobsCrawler:
+    def __init__(self, url):
+        self.url = url
+        self.headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        }
+        self.job_data = []
+        self.base_url = "https://www.linkedin.com"
 
-# Tách tập huấn luyện / kiểm tra
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    def get_page(self, url, retries = 3):
+        # Get page content with retry logic
+        for attempt in range(retries):
+            try:
+                response = self.session.get(url, timeout = 15)
+                if response.status_code == 200:
+                    return response
+                elif response.status_code == 429:
+                    logger.warning(f"Rate limited, đợi lâu hơn... (attempt {attempt + 1})")
+                    time.sleep(30)
+                else:
+                    logger.warning(f"Status code: {response.status_code} for {url}")
+                    
+            except requests.RequestException as e:
+                logger.error(f"Lỗi request (attempt {attempt + 1}): {e}")
+                if attempt < retries - 1:
+                    time.sleep(10)
+        
+        return None
+    
+    def search_jobs(self, keywords = "", location = "", start = 0):
+        search_url  = f"{self.base_url}/jobs/search/?"
 
-# --------------------------
-# 2️⃣ Cây với Information Gain (Entropy)
-# --------------------------
-clf_entropy = DecisionTreeClassifier(criterion='entropy', random_state=42)
-clf_entropy.fit(X_train, y_train)
-acc_entropy = clf_entropy.score(X_test, y_test)
+        params = []
+        if keywords:
+            params.append(f"keywords={quote(keywords)}")
+        if location:
+            params.append(f"location={quote(location)}")
+        params.append(f"start={start}")
+        params.append("f_TPR=r604800")  # Jobs posted in last week
+        
+        search_url += "&".join(params)
+        
+        logger.info(f"Tìm kiếm: {search_url}")
+        return self.get_page(search_url)
+    
+    def crawl_job(self, keywords = "", location = "", max_jobs = 50):
+        start = 0
+        while len(self.job_data) < max_jobs:
+            page = self.search_jobs(keywords, location, start)
+            if not page:
+                break
+            
+            soup = BeautifulSoup(page.content, "html.parser")
+            job_cards = soup.find_all("div", class_="result-card__contents job-result-card__contents")
+            if not job_cards:
+                logger.info("Không tìm thấy thêm công việc.")
+                break
+            
+            for card in job_cards:
+                if len(self.job_data) >= max_jobs:
+                    break
+                
+                job_info = self.parse_job_card(card)
+                if job_info:
+                    self.job_data.append(job_info)
+            
+            start += len(job_cards)
+        
+        return self.job_data
 
-# --------------------------
-# 3️⃣ Cây với Gini Index
-# --------------------------
-clf_gini = DecisionTreeClassifier(criterion='gini', random_state=42)
-clf_gini.fit(X_train, y_train)
-acc_gini = clf_gini.score(X_test, y_test)
 
-# --------------------------
-# 4️⃣ Cây với Gain Ratio (tự cài đặt đơn giản)
-# --------------------------
+if __name__ == "__main__":
+    search_queries = [
+        ("Data Engineer", "Vietnam")
+    ]
 
-def entropy(y):
-    """Tính entropy của tập nhãn y"""
-    values, counts = np.unique(y, return_counts=True)
-    probs = counts / len(y)
-    return -np.sum(probs * np.log2(probs + 1e-9))
-
-def information_gain_ratio(X, y, feature_index):
-    """Tính Gain Ratio cho một thuộc tính"""
-    total_entropy = entropy(y)
-    values, counts = np.unique(X[:, feature_index], return_counts=True)
-    weighted_entropy = 0
-    split_info = 0
-
-    for v, count in zip(values, counts):
-        subset_y = y[X[:, feature_index] == v]
-        p = count / len(y)
-        weighted_entropy += p * entropy(subset_y)
-        split_info -= p * np.log2(p + 1e-9)
-
-    info_gain = total_entropy - weighted_entropy
-    if split_info == 0:
-        return 0
-    return info_gain / split_info  # Gain Ratio
-
-# Chọn đặc trưng có Gain Ratio cao nhất
-ratios = [information_gain_ratio(X_train, y_train, i) for i in range(X_train.shape[1])]
-best_feature = np.argmax(ratios)
-
-print(f"Feature có Gain Ratio cao nhất: {data.feature_names[best_feature]} ({ratios[best_feature]:.4f})")
-
-# Để minh họa, ta huấn luyện cây entropy nhưng ưu tiên feature này
-clf_gainratio = DecisionTreeClassifier(criterion='entropy', random_state=42, max_depth=3)
-clf_gainratio.fit(X_train[:, [best_feature]], y_train)
-acc_gainratio = clf_gainratio.score(X_test[:, [best_feature]], y_test)
-
-# --------------------------
-# 5️⃣ So sánh kết quả
-# --------------------------
-print("\n=== KẾT QUẢ ===")
-print(f"Information Gain (Entropy): {acc_entropy:.4f}")
-print(f"Gini Index: {acc_gini:.4f}")
-print(f"Gain Ratio (thủ công, 1 feature tốt nhất): {acc_gainratio:.4f}")
+    crawler = LinkedInJobsCrawler(url)
+    page = crawler.get_page(url)
+    if page:
+        soup = BeautifulSoup(page.content, "html.parser")
+        print(soup.prettify())
