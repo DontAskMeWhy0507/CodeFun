@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tài Xỉu Giải Trí</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            touch-action: manipulation; /* Vô hiệu hóa double-tap to zoom trên mobile */
+        }
+        .dice-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; /* Tăng khoảng cách giữa các xúc xắc */
+            perspective: 1000px;
+        }
+        .dice {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #333;
+            border-radius: 12px;
+            background-color: #fff;
+        }
+        .dot {
+            width: 18px;
+            height: 18px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+        .front  { transform: rotateY(0deg) translateZ(40px); }
+        .back   { transform: rotateY(180deg) translateZ(40px); }
+        .right  { transform: rotateY(90deg) translateZ(40px); }
+        .left   { transform: rotateY(-90deg) translateZ(40px); }
+        .top    { transform: rotateX(90deg) translateZ(40px); }
+        .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+        .face-1 { display: flex; justify-content: center; align-items: center; }
+        .face-2 { display: flex; justify-content: space-between; }
+        .face-2 .dot:nth-child(2) { align-self: flex-end; }
+        .face-3 { display: flex; justify-content: space-between; align-items: center; }
+        .face-3 .dot:nth-child(2) { align-self: center; }
+        .face-3 .dot:nth-child(3) { align-self: flex-end; }
+        .face-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 0.5rem;}
+        .face-5 { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; padding: 0.5rem; }
+        .face-5 .dot:nth-child(1) { grid-column: 1; grid-row: 1; }
+        .face-5 .dot:nth-child(2) { grid-column: 3; grid-row: 1; }
+        .face-5 .dot:nth-child(3) { grid-column: 2; grid-row: 2; }
+        .face-5 .dot:nth-child(4) { grid-column: 1; grid-row: 3; }
+        .face-5 .dot:nth-child(5) { grid-column: 3; grid-row: 3; }
+        .face-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.5rem;}
+        
+        .bet-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .bet-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .bet-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        .shake {
+            animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-6 md:p-8 space-y-6 border-2 border-yellow-500">
+        
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-yellow-400 tracking-wider">TÀI XỈU</h1>
+            <p class="text-gray-400 mt-2 text-sm">Đây là game giải trí, không phải cờ bạc ăn tiền thật.</p>
+        </div>
+
+        <!-- Dice Area -->
+        <div id="bowl" class="bg-gray-900/50 rounded-2xl p-6 flex justify-center items-center h-48">
+            <div class="dice-container">
+                <div id="dice1" class="dice"></div>
+                <div id="dice2" class="dice"></div>
+                <div id="dice3" class="dice"></div>
+            </div>
+        </div>
+        
+        <!-- Result Display -->
+        <div id="result-display" class="text-center h-16 flex flex-col justify-center items-center bg-gray-700/50 rounded-xl transition-all duration-300">
+             <p class="text-lg text-gray-300">Sẵn sàng đặt cược!</p>
+        </div>
+
+        <!-- Balance -->
+        <div class="text-center">
+            <p class="text-lg text-gray-400">Điểm của bạn</p>
+            <p id="balance" class="text-4xl font-bold text-green-400">1000</p>
+        </div>
+
+        <!-- Bet Controls -->
+        <div class="space-y-4">
+            <div class="flex items-center bg-gray-700 rounded-full">
+                <label for="bet-amount" class="pl-4 pr-2 text-yellow-400 font-semibold">Cược:</label>
+                <input type="number" id="bet-amount" value="50" class="w-full bg-transparent text-white text-lg font-bold p-3 rounded-full focus:outline-none appearance-none">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button id="bet-xiu-btn" class="bet-btn text-2xl font-bold py-4 rounded-xl bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30">XỈU</button>
+                <button id="bet-tai-btn" class="bet-btn text-2xl font-bold py-4 rounded-xl bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30">TÀI</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const diceElements = [document.getElementById('dice1'), document.getElementById('dice2'), document.getElementById('dice3')];
+            const resultDisplay = document.getElementById('result-display');
+            const balanceElement = document.getElementById('balance');
+            const betAmountInput = document.getElementById('bet-amount');
+            const betXiuBtn = document.getElementById('bet-xiu-btn');
+            const betTaiBtn = document.getElementById('bet-tai-btn');
+            const bowl = document.getElementById('bowl');
+
+            let balance = 1000;
+            let isRolling = false;
+
+            const rotations = {
+                1: 'transform: rotateY(0deg) translateZ(40px);',
+                2: 'transform: rotateY(-90deg) translateZ(40px);',
+                3: 'transform: rotateX(-90deg) translateZ(40px);',
+                4: 'transform: rotateX(90deg) translateZ(40px);',
+                5: 'transform: rotateY(90deg) translateZ(40px);',
+                6: 'transform: rotateY(180deg) translateZ(40px);'
+            };
+
+            function createFace(value) {
+                const face = document.createElement('div');
+                face.className = `face face-${value}`;
+                const dotsCount = value;
+                for (let i = 0; i < dotsCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    face.appendChild(dot);
+                }
+                return face;
+            }
+
+            function setupDice() {
+                diceElements.forEach(diceEl => {
+                    const faces = {
+                        front: createFace(1),
+                        back: createFace(6),
+                        right: createFace(5),
+                        left: createFace(2),
+                        top: createFace(4),
+                        bottom: createFace(3),
+                    };
+
+                    for (const [side, face] of Object.entries(faces)) {
+                        face.classList.add(side);
+                        diceEl.appendChild(face);
+                    }
+                });
+            }
+
+            function rollDice(diceValues) {
+                diceElements.forEach((dice, index) => {
+                    // Random shake animation
+                    const randomX = (Math.floor(Math.random() * 4) + 4) * 90;
+                    const randomY = (Math.floor(Math.random() * 4) + 4) * 90;
+                    const randomZ = (Math.floor(Math.random() * 4) + 4) * 90;
+                    dice.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg) rotateZ(${randomZ}deg)`;
+
+                    // Set final rotation after animation
+                    setTimeout(() => {
+                        switch (diceValues[index]) {
+                            case 1: dice.style.transform = 'rotateY(0deg)'; break;
+                            case 2: dice.style.transform = 'rotateY(-90deg)'; break;
+                            case 3: dice.style.transform = 'rotateX(-90deg)'; break;
+                            case 4: dice.style.transform = 'rotateX(90deg)'; break;
+                            case 5: dice.style.transform = 'rotateY(90deg)'; break;
+                            case 6: dice.style.transform = 'rotateY(180deg)'; break;
+                        }
+                    }, 100);
+                });
+            }
+
+            function placeBet(choice) {
+                if (isRolling) return;
+
+                const betAmount = parseInt(betAmountInput.value);
+
+                if (isNaN(betAmount) || betAmount <= 0) {
+                    showResult("Vui lòng nhập tiền cược hợp lệ.", "text-yellow-400", false);
+                    return;
+                }
+                if (betAmount > balance) {
+                    showResult("Bạn không đủ điểm để cược!", "text-yellow-400", false);
+                    return;
+                }
+
+                isRolling = true;
+                setButtonsDisabled(true);
+                balance -= betAmount;
+                updateBalance();
+
+                showResult("Đang lắc...", "text-gray-300", true);
+                bowl.classList.add('shake');
+
+                setTimeout(() => {
+                    bowl.classList.remove('shake');
+                    const values = [
+                        Math.floor(Math.random() * 6) + 1,
+                        Math.floor(Math.random() * 6) + 1,
+                        Math.floor(Math.random() * 6) + 1
+                    ];
+
+                    rollDice(values);
+                    const total = values.reduce((sum, val) => sum + val, 0);
+                    const result = (total >= 4 && total <= 10) ? 'XỈU' : 'TÀI';
+
+                    let message;
+                    let color;
+                    if (result === choice) {
+                        const winnings = betAmount * 2;
+                        balance += winnings;
+                        message = `Thắng! +${winnings} điểm`;
+                        color = 'text-green-400';
+                    } else {
+                        message = `Thua! -${betAmount} điểm`;
+                        color = 'text-red-500';
+                    }
+
+                    showResult(`${total} - ${result}`, `font-bold text-3xl ${result === 'TÀI' ? 'text-red-500' : 'text-blue-500'}`, false);
+
+                    setTimeout(() => {
+                        showResult(message, color, false);
+                        updateBalance();
+                        isRolling = false;
+                        setButtonsDisabled(false);
+
+                        if (balance <= 0) {
+                            setTimeout(() => {
+                                if(confirm("Bạn đã hết điểm. Chơi lại từ đầu?")){
+                                    balance = 1000;
+                                    updateBalance();
+                                    showResult("Sẵn sàng đặt cược!", "text-gray-300", false);
+                                }
+                            }, 1000);
+                        }
+                    }, 1500);
+
+                }, 1000); 
+            }
+
+            function showResult(message, className, isRollingMessage) {
+                if (isRollingMessage) {
+                    resultDisplay.innerHTML = `<p class="${className} text-lg animate-pulse">${message}</p>`;
+                } else {
+                    const totalMatch = message.match(/^(\d+)\s-\s(TÀI|XỈU)/);
+                    if (totalMatch) {
+                        const total = totalMatch[1];
+                        const result = totalMatch[2];
+                        resultDisplay.innerHTML = `<p class="${className}">${total} <span class="text-2xl">${result}</span></p>`;
+                    } else {
+                        resultDisplay.innerHTML = `<p class="${className} text-xl font-semibold">${message}</p>`;
+                    }
+                }
+            }
+
+            function updateBalance() {
+                balanceElement.innerText = balance;
+            }
+
+            function setButtonsDisabled(disabled) {
+                betXiuBtn.disabled = disabled;
+                betTaiBtn.disabled = disabled;
+            }
+
+            betXiuBtn.addEventListener('click', () => placeBet('XỈU'));
+            betTaiBtn.addEventListener('click', () => placeBet('TÀI'));
+
+            // Initial setup
+            setupDice();
+            rollDice([1, 1, 1]); // Start with a default view
+            updateBalance();
+        });
+    </script>
+</body>
+</html>
