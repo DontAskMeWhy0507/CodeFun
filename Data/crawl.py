@@ -402,12 +402,13 @@ if __name__ == "__main__":
     
     # Các từ khóa tìm kiếm khác nhau
     search_queries = [
-        ("python developer", "Vietnam"),
-        ("software engineer", "Ho Chi Minh City"),
-        ("data analyst", "Hanoi"),
-        ("project manager", "Vietnam"),
-        ("marketing manager", "Vietnam")
+        ("game developer jobs", "Hanoi, Vietnam"),
+        ("game programmer jobs", "Hanoi, Vietnam"),
+        ("game development jobs", "Hanoi, Vietnam"),
+        ("game engine developer jobs", "Hanoi, Vietnam"),
+        ("unity unreal godot cocos2d game jobs", "Hanoi, Vietnam")
     ]
+
     
     # Crawl với từ khóa đầu tiên
     keywords, location = search_queries[0]
